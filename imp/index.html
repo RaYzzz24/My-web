@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Home Decor - Customized Curtains</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for typography and theme */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff; /* Clean white background */
+            color: #1f2937; /* Dark gray for text */
+        }
+        h1, h2, h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+        }
+        /* Underline accent for headings */
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: #DC2626; /* Bold Red */
+            margin: 16px auto 0;
+        }
+        /* Styles for the horizontal image scroller */
+        .scroller-viewport {
+            height: 60vh; /* Viewport height */
+            max-height: 500px;
+            overflow: hidden;
+            position: relative;
+            background-color: #f3f4f6; /* Light gray background for contrast */
+            border-radius: 0.5rem;
+        }
+        .scroller-gallery {
+            height: 100%;
+            display: flex; /* For horizontal layout */
+            transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        .scroller-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        /* NEW styles for external scroller navigation buttons */
+        .scroller-btn-external {
+            background-color: #f3f4f6;
+            color: #DC2626;
+            border: 1px solid #e5e7eb;
+            border-radius: 9999px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        .scroller-btn-external:hover {
+            background-color: #DC2626;
+            color: white;
+            transform: scale(1.1);
+        }
+        /* NEW styles for pagination dots */
+        .pagination-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #d1d5db; /* Inactive dot color */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .pagination-dot.active {
+            background-color: #DC2626; /* Active dot color */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#home" class="flex-shrink-0">
+                <img src="logo.png" alt="Elite Home Decor Logo" class="h-12 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/120x50/000000/FFFFFF?text=ELITE';">
+            </a>
+            <div class="flex-grow text-center">
+                <h1 class="text-xl sm:text-2xl text-black font-bold tracking-wider">ELITE HOME DECOR</h1>
+            </div>
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex flex-grow justify-end space-x-8">
+                <a href="#home" class="text-gray-700 hover:text-red-600 transition font-medium">Home</a>
+                <a href="#main-curtain" class="text-gray-700 hover:text-red-600 transition font-medium">Main Curtain</a>
+                <a href="#share-curtain" class="text-gray-700 hover:text-red-600 transition font-medium">Share Curtain</a>
+                <a href="#contact" class="text-gray-700 hover:text-red-600 transition font-medium">Contact</a>
+            </nav>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex-shrink-0 ml-4">
+                <button id="mobile-menu-button" class="text-black hover:text-red-600">
+                    <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu (Initially Hidden) -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm z-50">
+        <div class="flex justify-end p-4">
+            <button id="close-menu-button" class="text-white hover:text-red-500">
+                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <nav class="flex flex-col items-center justify-center h-full space-y-10 text-3xl">
+            <a href="#home" class="mobile-nav-link text-white hover:text-red-500 transition">Home</a>
+            <a href="#main-curtain" class="mobile-nav-link text-white hover:text-red-500 transition">Main Curtain</a>
+            <a href="#share-curtain" class="mobile-nav-link text-white hover:text-red-500 transition">Share Curtain</a>
+            <a href="#contact" class="mobile-nav-link text-white hover:text-red-500 transition">Contact</a>
+        </nav>
+    </div>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="py-24 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1533757875211-3715b0f92614?q=80&w=2070&auto=format&fit=crop')">
+            <div class="container mx-auto px-6 text-center bg-black/50 backdrop-blur p-12 rounded-lg max-w-4xl">
+                <h2 class="text-4xl md:text-5xl text-white mb-4">Welcome to Our Customized Curtains</h2>
+                <p class="text-lg text-gray-200">Browse our collection of high-quality, customized curtains for every season. Elegance tailored for your home.</p>
+            </div>
+        </section>
+
+        <!-- Main Curtain Section -->
+        <section id="main-curtain" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl text-black">Main Curtain</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Our primary collection of elegant designs, crafted with the finest materials for a timeless look.</p>
+                </div>
+                <!-- NEW Scroller Wrapper -->
+                <div class="scroller-wrapper max-w-4xl mx-auto">
+                    <div class="flex items-center justify-center space-x-2 sm:space-x-4">
+                        <button class="scroller-btn-external scroller-btn-prev" aria-label="Previous image">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                        </button>
+                        <div class="scroller-container flex-grow overflow-hidden">
+                            <div class="scroller-viewport">
+                                <div class="scroller-gallery">
+                                    <!-- Add your 20+ images here. Just copy the img tag and change the src -->
+                                    <img src="one.jpg?q=80&w=1887&auto=format&fit=crop" alt="Main Curtain 1">
+                                    <img src="win1.jpg?q=80&w=1887&auto=format&fit=crop" alt="Main Curtain 2">
+                                    <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=2070&auto=format&fit=crop" alt="Main Curtain 3">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="scroller-btn-external scroller-btn-next" aria-label="Next image">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                        </button>
+                    </div>
+                    <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Share Curtain Section -->
+        <section id="share-curtain" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl text-black">Share Curtain</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A collection of beautiful, contemporary curtains designed to be shared and admired.</p>
+                </div>
+                 <!-- NEW Scroller Wrapper -->
+                <div class="scroller-wrapper max-w-4xl mx-auto">
+                    <div class="flex items-center justify-center space-x-2 sm:space-x-4">
+                        <button class="scroller-btn-external scroller-btn-prev" aria-label="Previous image">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                        </button>
+                        <div class="scroller-container flex-grow overflow-hidden">
+                            <div class="scroller-viewport">
+                                <div class="scroller-gallery">
+                                    <!-- Add your 20+ images here. Just copy the img tag and change the src -->
+                                    <img src="two.jpg?q=80&w=1887&auto=format&fit=crop" alt="Share Curtain 1">
+                                    <img src="sum1.jpg?q=80&w=1887&auto=format&fit=crop" alt="Share Curtain 2">
+                                    <img src="https://images.unsplash.com/photo-1615875605825-5eb9bb5c3dec?q=80&w=1974&auto=format&fit=crop" alt="Share Curtain 3">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="scroller-btn-external scroller-btn-next" aria-label="Next image">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                        </button>
+                    </div>
+                    <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-gray-50">
+             <div class="container mx-auto px-6 max-w-3xl">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl text-black">Get a Custom Quote</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
+                </div>
+                <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl">
+                    <form id="inquiry-form" action="https://formspree.io/f/zray2524" method="POST">
+                        <div class="mb-5">
+                            <label for="name" class="block text-gray-800 font-semibold mb-2">Name:</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                        </div>
+                        <div class="mb-5">
+                            <label for="email" class="block text-gray-800 font-semibold mb-2">Email:</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                        </div>
+                        <div class="mb-8">
+                            <label for="message" class="block text-gray-800 font-semibold mb-2">Message:</label>
+                            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-lg hover:bg-black transition-colors font-bold text-lg shadow-md hover:shadow-lg">Submit Inquiry</button>
+                    </form>
+                    <div class="text-center mt-10">
+                        <p class="text-gray-600 mb-4">Or chat with us directly on WhatsApp:</p>
+                        <a href="https://wa.me/9113692176" target="_blank" class="inline-block bg-black text-white py-3 px-8 rounded-lg hover:bg-gray-800 transition-transform hover:scale-105 shadow-md">
+                            <span class="flex items-center space-x-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.317 4.814 4.896-1.282zM9.062 8.609c-.09-.239-.427-.258-.614-.258-.182 0-.372.016-.546.016-.275 0-.687.119-.942.392-.255.274-.942.918-.942 2.24 0 1.322.965 2.6 1.103 2.76.138.161 1.849 2.958 4.542 4.029 2.257.881 2.694.713 3.39.639.695-.073 2.12-.867 2.417-1.707.296-.84.296-1.56.207-1.711-.09-.151-.327-.24-.687-.421-.36-.182-.942-.464-1.08-.515-.138-.051-.275-.073-.412.073-.138.145-.546.687-.662.825-.116.138-.232.161-.412.073-.182-.088-.771-.28-1.468-.906-.544-.472-.906-1.066-.995-1.246-.09-.182-.015-.274.058-.362.073-.088.161-.231.232-.338.073-.106.09-.182.138-.302.046-.12.023-.231-.023-.318-.046-.088-.412-1.016-.546-1.38z"/></svg>
+                                <span>Chat with us</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-400">
+            <p>&copy; 2024 Elite Home Decor. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile menu functionality
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const openMenu = () => mobileMenu.classList.remove('hidden');
+            const closeMenu = () => mobileMenu.classList.add('hidden');
+            mobileMenuButton.addEventListener('click', openMenu);
+            closeMenuButton.addEventListener('click', closeMenu);
+            mobileNavLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+            // Horizontal scroller functionality
+            const scrollerWrappers = document.querySelectorAll('.scroller-wrapper');
+            scrollerWrappers.forEach(wrapper => {
+                const gallery = wrapper.querySelector('.scroller-gallery');
+                const prevBtn = wrapper.querySelector('.scroller-btn-prev');
+                const nextBtn = wrapper.querySelector('.scroller-btn-next');
+                const paginationContainer = wrapper.querySelector('.scroller-pagination');
+                const images = gallery.querySelectorAll('img');
+
+                if (!gallery || !prevBtn || !nextBtn || images.length === 0) return;
+
+                let currentIndex = 0;
+                const totalImages = images.length;
+                
+                // --- Create Pagination Dots ---
+                for (let i = 0; i < totalImages; i++) {
+                    const dot = document.createElement('div');
+                    dot.classList.add('pagination-dot');
+                    dot.addEventListener('click', () => {
+                        currentIndex = i;
+                        updateGallery();
+                    });
+                    paginationContainer.appendChild(dot);
+                }
+                const dots = paginationContainer.querySelectorAll('.pagination-dot');
+
+                function updateGallery() {
+                    gallery.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    // Update active dot
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentIndex);
+                    });
+                }
+
+                prevBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalImages - 1;
+                    updateGallery();
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex < totalImages - 1) ? currentIndex + 1 : 0;
+                    updateGallery();
+                });
+
+                updateGallery(); // Initial call
+            });
+        });
+    </script>
+</body>
+</html>
+

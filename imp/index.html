@@ -139,49 +139,65 @@
     <!-- Header Section -->
     <header class="bg-white sticky top-0 z-40">
         <div class="menu-container">
-            <div class="container mx-auto px-4 flex justify-between items-center">
-                <a href="#home-page" class="flex-shrink-0">
-                    <img src="logo.png" alt="Elite Home Decor Logo" class="h-12 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/120x50/000000/FFFFFF?text=ELITE';">
-                </a>
-                
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex items-center space-x-8">
-                     <h1 class="text-xl sm:text-2xl text-black font-bold tracking-wider absolute left-1/2 -translate-x-1/2">ELITE HOME DECOR</h1>
-                    <a href="#home-page" class="nav-link">Home</a>
-                    <a href="#curtains-page" class="nav-link">Curtains</a>
-                    <a href="#bedding-page" class="nav-link">Bedding</a>
-                    <a href="#seating-page" class="nav-link">Seating</a>
-                    <a href="#contact-page" class="nav-link">Contact</a>
-                </nav>
-                
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-black hover:text-red-600">
-                        <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                    </button>
+            <div class="container mx-auto px-4 flex justify-between items-center relative">
+                <!-- Flex container for logo on the left -->
+                <div class="flex-1 flex justify-start">
+                    <a href="#home-page" class="flex-shrink-0">
+                        <img src="logo.png" alt="Elite Home Decor Logo" class="h-12 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/120x50/000000/FFFFFF?text=ELITE';">
+                    </a>
+                </div>
+
+                <!-- Absolutely centered title -->
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <h1 class="text-lg sm:text-2xl text-black font-bold tracking-wider whitespace-nowrap">ELITE HOME DECOR</h1>
+                </div>
+
+                <!-- Flex container for nav/button on the right -->
+                <div class="flex-1 flex justify-end items-center">
+                    <!-- Desktop Navigation -->
+                    <nav class="hidden md:flex items-center space-x-8">
+                        <a href="#home-page" class="nav-link">Home</a>
+                        <a href="#curtains-page" class="nav-link">Curtains</a>
+                        <a href="#bedding-page" class="nav-link">Bedding</a>
+                        <a href="#seating-page" class="nav-link">Seating</a>
+                        <a href="#contact-page" class="nav-link">Contact</a>
+                    </nav>
+                    
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden">
+                        <button id="mobile-menu-button" class="text-black hover:text-red-600">
+                            <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Mobile Navigation Menu (Initially Hidden) -->
-    <div id="mobile-menu" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm z-50">
-        <div class="flex justify-end p-4">
-            <button id="close-menu-button" class="text-white hover:text-red-500">
-                <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
+    <div id="mobile-menu" class="fixed inset-0 bg-black/60 z-50 hidden">
+        <!-- Menu Panel -->
+        <div id="mobile-menu-panel" class="absolute top-0 right-0 h-full w-4/5 max-w-sm bg-white shadow-xl transform translate-x-full transition-transform duration-300 ease-in-out">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800" style="font-family: 'Cormorant Garamond', serif;">Menu</h2>
+                    <button id="close-menu-button" class="text-gray-600 hover:text-red-600">
+                        <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <nav class="flex flex-col space-y-6">
+                    <a href="#home-page" class="mobile-nav-link text-gray-700 hover:text-red-600 text-xl font-medium transition-colors">Home</a>
+                    <a href="#curtains-page" class="mobile-nav-link text-gray-700 hover:text-red-600 text-xl font-medium transition-colors">Curtains</a>
+                    <a href="#bedding-page" class="mobile-nav-link text-gray-700 hover:text-red-600 text-xl font-medium transition-colors">Bedding</a>
+                    <a href="#seating-page" class="mobile-nav-link text-gray-700 hover:text-red-600 text-xl font-medium transition-colors">Seating</a>
+                    <a href="#contact-page" class="mobile-nav-link text-gray-700 hover:text-red-600 text-xl font-medium transition-colors">Contact</a>
+                </nav>
+            </div>
         </div>
-        <nav class="flex flex-col items-center justify-center h-full space-y-10 text-3xl">
-            <a href="#home-page" class="mobile-nav-link text-white hover:text-red-500 transition">Home</a>
-            <a href="#curtains-page" class="mobile-nav-link text-white hover:text-red-500 transition">Curtains</a>
-            <a href="#bedding-page" class="mobile-nav-link text-white hover:text-red-500 transition">Bedding</a>
-            <a href="#seating-page" class="mobile-nav-link text-white hover:text-red-500 transition">Seating</a>
-            <a href="#contact-page" class="mobile-nav-link text-white hover:text-red-500 transition">Contact</a>
-        </nav>
     </div>
 
     <main>
@@ -714,7 +730,7 @@
                          </div>
                          <div class="text-center md:text-left">
                              <h3 class="text-3xl text-black mb-4">Visit Us</h3>
-                             <p class="text-lg text-gray-700 mb-2"><strong>Address:</strong> #38, Anjeneya Temple Street , Kempapura, Bengaluru - 560024</p>
+                             <p class="text-lg text-gray-700 mb-2"><strong>Address:</strong>#38, Anjeneya Temple Street , Kempapura, Bengaluru - 560024</p>
                              <p class="text-lg text-gray-700"><strong>Hours:</strong> Mon - Sat, 10:00 AM - 9:00 PM</p>
                          </div>
                      </div>
@@ -732,22 +748,47 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Mobile menu functionality
+            // --- Mobile Menu Logic ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const closeMenuButton = document.getElementById('close-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-            const openMenu = () => mobileMenu.classList.remove('hidden');
-            const closeMenu = () => mobileMenu.classList.add('hidden');
+            const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+            const mobileNavLinks = document.querySelectorAll('#mobile-menu .mobile-nav-link');
+
+            const openMenu = () => {
+                mobileMenu.classList.remove('hidden');
+                requestAnimationFrame(() => {
+                    mobileMenuPanel.classList.remove('translate-x-full');
+                });
+            };
+
+            const closeMenu = () => {
+                mobileMenuPanel.classList.add('translate-x-full');
+                mobileMenuPanel.addEventListener('transitionend', () => {
+                    mobileMenu.classList.add('hidden');
+                }, { once: true });
+            };
+
             mobileMenuButton.addEventListener('click', openMenu);
             closeMenuButton.addEventListener('click', closeMenu);
             
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target === mobileMenu) {
+                    closeMenu();
+                }
+            });
+
             // --- Page Switching Logic ---
             const pageWrappers = document.querySelectorAll('main > .page');
-            const allNavLinks = document.querySelectorAll('header nav a, #mobile-menu nav a, a.feature-card-link, a[href="#curtains-page"].bg-red-600');
+            const allNavLinks = document.querySelectorAll('header a, #mobile-menu nav a, a.feature-card-link');
 
             const showPage = (targetId) => {
-                const pageId = targetId.substring(1); // remove the leading '#'
+                if (!targetId || !targetId.startsWith('#')) return;
+                const pageId = targetId.substring(1);
                 
                 pageWrappers.forEach(page => {
                     page.classList.toggle('hidden', page.id !== pageId);
@@ -759,12 +800,8 @@
                 link.addEventListener('click', (event) => {
                     const targetId = link.getAttribute('href');
                     if (targetId.startsWith('#')) {
-                        // This prevents default anchor behavior for smooth SPA-like transitions
-                        event.preventDefault(); 
-                        window.location.hash = targetId; // Manually set hash to trigger hashchange
-                        if (link.classList.contains('mobile-nav-link')) {
-                            closeMenu();
-                        }
+                        event.preventDefault();
+                        window.location.hash = targetId;
                     }
                 });
             });
@@ -826,3 +863,4 @@
     </script>
 </body>
 </html>
+

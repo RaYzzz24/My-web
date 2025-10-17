@@ -139,31 +139,28 @@
     <!-- Header Section -->
     <header class="bg-white sticky top-0 z-40">
         <div class="menu-container">
-            <div class="container mx-auto px-4 flex justify-between items-center relative">
-                <!-- Flex container for logo on the left -->
-                <div class="flex-1 flex justify-start">
-                    <a href="#home-page" class="flex-shrink-0">
+            <div class="container mx-auto px-4 flex justify-between items-center">
+                <!-- Left: Logo -->
+                <div class="flex-shrink-0">
+                    <a href="#home-page">
                         <img src="logo.png" alt="Elite Home Decor Logo" class="h-12 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/120x50/000000/FFFFFF?text=ELITE';">
                     </a>
                 </div>
-
-                <!-- Absolutely centered title -->
-                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <h1 class="text-lg sm:text-2xl text-black font-bold tracking-wider whitespace-nowrap">ELITE HOME DECOR</h1>
+    
+                <!-- Center: Title -->
+                <div class="flex-grow text-center">
+                     <h1 class="text-lg sm:text-xl md:text-2xl text-black font-bold tracking-wider">ELITE HOME DECOR</h1>
                 </div>
-
-                <!-- Flex container for nav/button on the right -->
-                <div class="flex-1 flex justify-end items-center">
-                    <!-- Desktop Navigation -->
-                    <nav class="hidden md:flex items-center space-x-8">
+                
+                <!-- Right: Navigation/Menu -->
+                <div class="flex-shrink-0">
+                    <nav class="hidden md:flex items-center space-x-8" aria-label="Main Navigation">
                         <a href="#home-page" class="nav-link">Home</a>
                         <a href="#curtains-page" class="nav-link">Curtains</a>
                         <a href="#bedding-page" class="nav-link">Bedding</a>
                         <a href="#seating-page" class="nav-link">Seating</a>
                         <a href="#contact-page" class="nav-link">Contact</a>
                     </nav>
-                    
-                    <!-- Mobile Menu Button -->
                     <div class="md:hidden">
                         <button id="mobile-menu-button" class="text-black hover:text-red-600">
                             <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -302,7 +299,7 @@
                          <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
                      </div>
                      <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
-                         <form id="inquiry-form-home" action="https://formspree.io/f/zray2524" method="POST">
+                         <form id="inquiry-form-home">
                              <div class="mb-5">
                                  <label for="name-home" class="block text-gray-800 font-semibold mb-2">Name:</label>
                                  <input type="text" id="name-home" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
@@ -440,7 +437,7 @@
                          <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
                      </div>
                      <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
-                         <form id="inquiry-form-curtains" action="https://formspree.io/f/zray2524" method="POST">
+                         <form id="inquiry-form-curtains">
                              <div class="mb-5">
                                  <label for="name-curtains" class="block text-gray-800 font-semibold mb-2">Name:</label>
                                  <input type="text" id="name-curtains" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
@@ -520,7 +517,7 @@
                          <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
                      </div>
                      <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
-                         <form id="inquiry-form-bedding" action="https://formspree.io/f/zray2524" method="POST">
+                         <form id="inquiry-form-bedding">
                              <div class="mb-5">
                                  <label for="name-bedding" class="block text-gray-800 font-semibold mb-2">Name:</label>
                                  <input type="text" id="name-bedding" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
@@ -600,7 +597,7 @@
                          <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
                      </div>
                      <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
-                         <form id="inquiry-form-seating" action="https://formspree.io/f/zray2524" method="POST">
+                         <form id="inquiry-form-seating">
                              <div class="mb-5">
                                  <label for="name-seating" class="block text-gray-800 font-semibold mb-2">Name:</label>
                                  <input type="text" id="name-seating" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
@@ -673,7 +670,7 @@
                          <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
                      </div>
                      <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
-                         <form id="inquiry-form" action="https://formspree.io/f/zray2524" method="POST">
+                         <form id="inquiry-form">
                              <div class="mb-5">
                                  <label for="name" class="block text-gray-800 font-semibold mb-2">Name:</label>
                                  <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
@@ -730,7 +727,7 @@
                          </div>
                          <div class="text-center md:text-left">
                              <h3 class="text-3xl text-black mb-4">Visit Us</h3>
-                             <p class="text-lg text-gray-700 mb-2"><strong>Address:</strong>#38, Anjeneya Temple Street , Kempapura, Bengaluru - 560024</p>
+                             <p class="text-lg text-gray-700 mb-2"><strong>Address:</strong> #38, Anjeneya Temple Street , Kempapura, Bengaluru - 560024</p>
                              <p class="text-lg text-gray-700"><strong>Hours:</strong> Mon - Sat, 10:00 AM - 9:00 PM</p>
                          </div>
                      </div>
@@ -858,6 +855,33 @@
                 });
 
                 updateGallery();
+            });
+
+            // --- Form Submission to Email Logic ---
+            const handleFormSubmit = (event) => {
+                event.preventDefault(); // Prevent default submission
+                const form = event.target;
+                const name = form.querySelector('input[name="name"]').value;
+                const email = form.querySelector('input[name="email"]').value;
+                const interested = form.querySelector('select[name="interested"]').value;
+                const message = form.querySelector('textarea[name="message"]').value;
+                
+                const recipient = "zray2524@gmail.com";
+                const subject = `New Inquiry from ${name} - Interested in ${interested}`;
+                const body = `You have a new inquiry from your website:\n\n` +
+                             `Name: ${name}\n` +
+                             `Email: ${email}\n` +
+                             `Interested In: ${interested}\n` +
+                             `Message:\n${message}`;
+
+                // Create and trigger a mailto link
+                const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.location.href = mailtoLink;
+            };
+
+            // Attach the event listener to all forms
+            document.querySelectorAll('form').forEach(form => {
+                form.addEventListener('submit', handleFormSubmit);
             });
         });
     </script>

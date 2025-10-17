@@ -102,35 +102,71 @@
         .feature-card-link {
             text-decoration: none;
         }
+        /* NEW Menu Bar Styles */
+        .menu-container {
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 0.75rem 1rem;
+        }
+        .nav-link {
+            position: relative;
+            color: #374151; /* gray-700 */
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding-bottom: 4px;
+        }
+        .nav-link:hover {
+            color: #DC2626; /* red-600 */
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #DC2626;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
     </style>
 </head>
 <body class="text-gray-800">
 
-    <header class="bg-white shadow-lg sticky top-0 z-40">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="#home-page" class="flex-shrink-0">
-                <img src="logo.png" alt="Elite Home Decor Logo" class="h-12 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/120x50/000000/FFFFFF?text=ELITE';">
-            </a>
-            <div class="flex-grow text-center">
-                <h1 class="text-xl sm:text-2xl text-black font-bold tracking-wider">ELITE HOME DECOR</h1>
-            </div>
-            <nav class="hidden md:flex flex-grow justify-end space-x-8">
-                <a href="#home-page" class="text-gray-700 hover:text-red-600 transition font-medium">Home</a>
-                <a href="#curtains-page" class="text-gray-700 hover:text-red-600 transition font-medium">Curtains</a>
-                <a href="#bedding-page" class="text-gray-700 hover:text-red-600 transition font-medium">Bedding</a>
-                <a href="#seating-page" class="text-gray-700 hover:text-red-600 transition font-medium">Seating</a>
-                <a href="#contact-page" class="text-gray-700 hover:text-red-600 transition font-medium">Contact</a>
-            </nav>
-            <div class="md:hidden flex-shrink-0 ml-4">
-                <button id="mobile-menu-button" class="text-black hover:text-red-600">
-                    <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                    </svg>
-                </button>
+    <!-- Header Section -->
+    <header class="bg-white sticky top-0 z-40">
+        <div class="menu-container">
+            <div class="container mx-auto px-4 flex justify-between items-center">
+                <a href="#home-page" class="flex-shrink-0">
+                    <img src="logo.png" alt="Elite Home Decor Logo" class="h-12 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/120x50/000000/FFFFFF?text=ELITE';">
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                     <h1 class="text-xl sm:text-2xl text-black font-bold tracking-wider absolute left-1/2 -translate-x-1/2">ELITE HOME DECOR</h1>
+                    <a href="#home-page" class="nav-link">Home</a>
+                    <a href="#curtains-page" class="nav-link">Curtains</a>
+                    <a href="#bedding-page" class="nav-link">Bedding</a>
+                    <a href="#seating-page" class="nav-link">Seating</a>
+                    <a href="#contact-page" class="nav-link">Contact</a>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-black hover:text-red-600">
+                        <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
+    <!-- Mobile Navigation Menu (Initially Hidden) -->
     <div id="mobile-menu" class="hidden fixed inset-0 bg-black/90 backdrop-blur-sm z-50">
         <div class="flex justify-end p-4">
             <button id="close-menu-button" class="text-white hover:text-red-500">
@@ -149,8 +185,10 @@
     </div>
 
     <main>
+        <!-- Home Page Wrapper -->
         <div id="home-page" class="page">
             
+            <!-- Hero Section -->
             <section class="relative h-[70vh] min-h-[450px] bg-cover bg-center flex items-center justify-center text-white" style="background-image: url('https://images.unsplash.com/photo-1594013524385-59754c609353?q=80&w=2070&auto=format&fit=crop');">
                 <div class="absolute inset-0 bg-black opacity-50"></div>
                 <div class="relative z-10 text-center p-6">
@@ -207,6 +245,7 @@
                 </div>
             </section>
 
+            <!-- Why Choose Us Section -->
             <section class="py-20 bg-gray-50">
                 <div class="container mx-auto px-6">
                     <div class="text-center mb-12">
@@ -239,6 +278,7 @@
                 </div>
             </section>
             
+            <!-- Contact and Location Sections for Home Page -->
             <section class="py-20 bg-white">
                  <div class="container mx-auto px-6 max-w-3xl">
                      <div class="text-center mb-12">
@@ -310,6 +350,7 @@
              </section>
         </div>
 
+        <!-- Curtains Page Wrapper -->
         <div id="curtains-page" class="page hidden">
              <section class="py-20 bg-gray-50">
                  <div class="container mx-auto px-6">
@@ -319,6 +360,7 @@
                              <p class="text-lg text-gray-200">Browse our collection of high-quality, customized curtains for every season. Elegance tailored for your home.</p>
                          </div>
                      </section>
+                     <!-- Main Curtain Section -->
                      <div class="my-16">
                          <div class="text-center mb-12">
                              <h3 class="text-3xl text-black">Main Curtain Collection</h3>
@@ -345,6 +387,7 @@
                              <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
                          </div>
                      </div>
+                     <!-- Share Curtain Section -->
                      <div>
                          <div class="text-center mb-12">
                              <h3 class="text-3xl text-black">Sheer Curtain Collection</h3>
@@ -373,7 +416,8 @@
                      </div>
                  </div>
              </section>
-             <section class="py-20 bg-white">
+             <!-- Contact and Location Sections for Curtains Page -->
+            <section class="py-20 bg-white">
                  <div class="container mx-auto px-6 max-w-3xl">
                      <div class="text-center mb-12">
                          <h2 class="text-4xl text-black">Ready for New Curtains?</h2>
@@ -444,6 +488,7 @@
              </section>
         </div>
 
+        <!-- Bedding Page Wrapper -->
         <div id="bedding-page" class="page hidden">
             <section class="py-20 bg-white">
                 <div class="container mx-auto px-6 text-center">
@@ -451,7 +496,8 @@
                     <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Create your dream bedroom with our comfortable and stylish bedding options. More images and details coming soon!</p>
                 </div>
             </section>
-             <section class="py-20 bg-white">
+             <!-- Contact and Location Sections for Bedding Page -->
+            <section class="py-20 bg-white">
                  <div class="container mx-auto px-6 max-w-3xl">
                      <div class="text-center mb-12">
                          <h2 class="text-4xl text-black">Find Your Perfect Bedding</h2>
@@ -522,6 +568,7 @@
              </section>
         </div>
 
+        <!-- Seating Page Wrapper -->
         <div id="seating-page" class="page hidden">
             <section class="py-20 bg-gray-50">
                 <div class="container mx-auto px-6 text-center">
@@ -529,6 +576,7 @@
                     <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Add a touch of comfort and fun to any room with our seating collection. More images and details coming soon!</p>
                 </div>
             </section>
+            <!-- Contact and Location Sections for Seating Page -->
             <section class="py-20 bg-white">
                  <div class="container mx-auto px-6 max-w-3xl">
                      <div class="text-center mb-12">
@@ -600,6 +648,7 @@
              </section>
         </div>
 
+        <!-- Contact Page Wrapper -->
         <div id="contact-page" class="page hidden">
             <section id="contact" class="py-20 bg-white">
                  <div class="container mx-auto px-6 max-w-3xl">
@@ -695,7 +744,7 @@
             
             // --- Page Switching Logic ---
             const pageWrappers = document.querySelectorAll('main > .page');
-            const allNavLinks = document.querySelectorAll('header nav a, #mobile-menu nav a, a.feature-card-link');
+            const allNavLinks = document.querySelectorAll('header nav a, #mobile-menu nav a, a.feature-card-link, a[href="#curtains-page"].bg-red-600');
 
             const showPage = (targetId) => {
                 const pageId = targetId.substring(1); // remove the leading '#'

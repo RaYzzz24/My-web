@@ -120,7 +120,7 @@
         .menu-container {
             background-color: white;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            padding: 0.75rem 1rem;
+            padding: 0.75rem 0; /* Changed from 0.75rem 1rem */
         }
         .nav-link {
             position: relative;
@@ -191,7 +191,7 @@
     <!-- Header Section -->
     <header class="bg-white sticky top-0 z-40">
         <div class="menu-container">
-            <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="container mx-auto px-2 sm:px-4 flex justify-between items-center"> <!-- Changed padding to px-2 sm:px-4 -->
                 <!-- Left: Logo -->
                 <div class="flex-shrink-0">
                     <a href="#home-page" class="nav-link-logo">
@@ -199,7 +199,10 @@
                     </a>
                 </div>
     
-                <!-- Center: Title (REMOVED) -->
+                <!-- Center: Title (RESTORED) -->
+                <div class="flex-grow text-center px-2"> <!-- Added text-center and padding -->
+                     <h1 class="text-base sm:text-xl md:text-2xl text-black font-bold tracking-wider">ELITE HOME DECOR</h1> <!-- Made text responsive -->
+                </div>
                 
                 <!-- Right: Navigation/Menu -->
                 <div class="flex-shrink-0">
@@ -1045,5 +1048,6 @@
 
 </body>
 </html>
+
 
 

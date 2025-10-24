@@ -43,8 +43,8 @@
 
         /* Styles for the horizontal image scroller */
         .scroller-viewport {
-            height: 60vh; /* Viewport height */
-            max-height: 500px;
+            height: 50vh; /* Viewport height (Reduced from 60vh) */
+            max-height: 400px; /* (Reduced from 500px) */
             overflow: hidden;
             position: relative;
             background-color: #f3f4f6; /* Light gray background for contrast */
@@ -97,10 +97,11 @@
             background-color: white;
             border-radius: 0.5rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            padding: 2rem;
-            text-align: center;
+            /* padding: 2rem; (Removed) */
+            /* text-align: center; (Removed) */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             height: 100%;
+            overflow: hidden; /* Added to contain image */
         }
         .feature-card:hover {
             transform: translateY(-5px);
@@ -176,6 +177,13 @@
             text-align: center;
         }
 
+        /* NEW: Style for home page feature card images */
+        .feature-card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
     </style>
 </head>
 <body class="text-gray-800">
@@ -191,10 +199,7 @@
                     </a>
                 </div>
     
-                <!-- Center: Title -->
-                <div class="flex-grow text-center">
-                     <h1 class="text-lg sm:text-xl md:text-2xl text-black font-bold tracking-wider">ELITE HOME DECOR</h1>
-                </div>
+                <!-- Center: Title (REMOVED) -->
                 
                 <!-- Right: Navigation/Menu -->
                 <div class="flex-shrink-0">
@@ -264,38 +269,42 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         <a href="#curtains-page" class="feature-card-link nav-link-cta block">
                             <div class="feature-card">
-                                <div class="feature-card-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" /></svg>
+                                <!-- REMOVED Icon -->
+                                <img src="https://images.unsplash.com/photo-1604200154020-83f0_I-s9_w?q=80&w=1887&auto=format&fit=crop" alt="Custom Curtains" class="feature-card-img" onerror="this.onerror=null;this.src='https://placehold.co/300x180/f3f4f6/DC2626?text=Curtains';">
+                                <div class="p-6 text-center">
+                                    <h3 class="text-2xl text-red-600 font-bold mb-2">Custom Curtains</h3>
+                                    <p class="text-gray-600">Tailor-made curtains to perfectly fit your windows and style. Our specialty!</p>
                                 </div>
-                                <h3 class="text-2xl text-black mb-2">Custom Curtains</h3>
-                                <p class="text-gray-600">Tailor-made curtains to perfectly fit your windows and style. Our specialty!</p>
                             </div>
                         </a>
                         <a href="#bedding-page" class="feature-card-link nav-link-cta block">
                             <div class="feature-card">
-                                <div class="feature-card-icon">
-                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg>
+                                <!-- REMOVED Icon -->
+                                <img src="https://images.unsplash.com/photo-1590212151088-e8dafd2b9c79?q=80&w=1931&auto=format&fit=crop" alt="Mattresses & Pillows" class="feature-card-img" onerror="this.onerror=null;this.src='https://placehold.co/300x180/f3f4f6/DC2626?text=Bedding';">
+                                <div class="p-6 text-center">
+                                    <h3 class="text-2xl text-red-600 font-bold mb-2">Mattresses & Pillows</h3>
+                                    <p class="text-gray-600">Discover unparalleled comfort with our range of mattresses and pillows.</p>
                                 </div>
-                                <h3 class="text-2xl text-black mb-2">Mattresses & Pillows</h3>
-                                <p class="text-gray-600">Discover unparalleled comfort with our range of mattresses and pillows.</p>
                             </div>
                         </a>
                         <a href="#seating-page" class="feature-card-link nav-link-cta block">
                             <div class="feature-card">
-                                 <div class="feature-card-icon">
-                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 2.25c-2.59 1.9-3.97 4.88-3.97 8.25a14.985 14.985 0 003.37 9.31l4.16-4.16zM9.63 2.25L12 6.63l2.37-4.38M12 21.75l2.37-4.38-2.37-4.16-2.37 4.16L12 21.75z" /></svg>
+                                 <!-- REMOVED Icon -->
+                                 <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?q=80&w=1965&auto=format&fit=crop" alt="Beanbags & Seating" class="feature-card-img" onerror="this.onerror=null;this.src='https://placehold.co/300x180/f3f4f6/DC2626?text=Seating';">
+                                 <div class="p-6 text-center">
+                                    <h3 class="text-2xl text-red-600 font-bold mb-2">Beanbags & Seating</h3>
+                                    <p class="text-gray-600">Stylish and comfortable beanbags and other seating solutions.</p>
                                  </div>
-                                <h3 class="text-2xl text-black mb-2">Beanbags & Seating</h3>
-                                <p class="text-gray-600">Stylish and comfortable beanbags and other seating solutions.</p>
                             </div>
                         </a>
                         <a href="#bedding-page" class="feature-card-link nav-link-cta block">
                             <div class="feature-card">
-                                 <div class="feature-card-icon">
-                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l3 3m0 0l3-3m-3 3v-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                 <!-- REMOVED Icon -->
+                                 <img src="https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?q=80&w=2070&auto=format&fit=crop" alt="Bedsheets & Covers" class="feature-card-img" onerror="this.onerror=null;this.src='https://placehold.co/300x180/f3f4f6/DC2626?text=Bedsheets';">
+                                 <div class="p-6 text-center">
+                                    <h3 class="text-2xl text-red-600 font-bold mb-2">Bedsheets & Covers</h3>
+                                    <p class="text-gray-600">High-quality bedsheets and covers in a variety of designs.</p>
                                  </div>
-                                <h3 class="text-2xl text-black mb-2">Bedsheets & Covers</h3>
-                                <p class="text-gray-600">High-quality bedsheets and covers in a variety of designs.</p>
                             </div>
                         </a>
                     </div>
@@ -409,15 +418,14 @@
 
         <!-- Curtains Page Wrapper -->
         <div id="curtains-page" class="page hidden">
-             <section class="py-20 bg-gray-50">
              <section class="py-20"> <!-- Removed bg-gray-50 -->
                  <div class="container mx-auto px-6">
-                       <section class="py-24 bg-cover bg-center rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1533757875211-3715b0f92614?q=80&w=2070&auto-format&fit=crop')">
-                           <div class="container mx-auto px-6 text-center bg-black/50 backdrop-blur p-12 rounded-lg max-w-4xl">
-                               <h2 class="text-4xl md:text-5xl text-white mb-4">Our Customized Curtains</h2>
-                               <p class="text-lg text-gray-200">Browse our collection of high-quality, customized curtains for every season. Elegance tailored for your home.</p>
-                           </div>
-                       </section>
+                       <!-- NEW Simple Header -->
+                       <div class="container mx-auto px-6 pt-16 text-center">
+                           <h2 class="text-4xl md:text-5xl text-black">Our Customized Curtains</h2>
+                           <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">Browse our collection of high-quality, customized curtains for every season. Elegance tailored for your home.</p>
+                       </div>
+
                        <!-- Main Curtain Section -->
                        <div class="my-16">
                            <div class="text-center mb-12">
@@ -449,7 +457,6 @@
                        <div>
                            <div class="text-center mb-12">
                                <h3 class="text-3xl text-black">Sheer Curtain Collection</h3>
-                               <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A collection of beautiful, contemporary curtains designed to be shared and admired.</p>
                                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Lightweight, translucent fabrics that gently filter light and add a soft, elegant touch to any room.</p>
                            </div>
                            <div class="scroller-wrapper max-w-4xl mx-auto">
@@ -527,69 +534,17 @@
 
         <!-- Bedding Page Wrapper -->
         <div id="bedding-page" class="page hidden">
-             <section class="py-20 bg-gray-50">
              <section class="py-20"> <!-- Removed bg-gray-50 -->
                  <div class="container mx-auto px-6">
-                       <section class="py-24 bg-cover bg-center rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=2070&auto=format&fit=crop');">
-                           <div class="container mx-auto px-6 text-center bg-black/50 backdrop-blur p-12 rounded-lg max-w-4xl">
-                               <h2 class="text-4xl md:text-5xl text-white mb-4">Comfort & Style</h2>
-                               <p class="text-lg text-gray-200">Explore our premium collection of mattresses, pillows, bedsheets, and covers designed for your ultimate comfort.</p>
-                           </div>
-                       </section>
-                       <!-- Mattress Section -->
-                       <div class="my-16">
-                           <div class="text-center mb-12">
-                               <h3 class="text-3xl text-black">Mattresses & Pillows</h3>
-                               <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Experience restful sleep with our supportive and plush mattresses and pillows.</p>
-                           </div>
-                           <div class="scroller-wrapper max-w-4xl mx-auto">
-                               <div class="flex items-center justify-center space-x-2 sm:space-x-4">
-                                   <button class="scroller-btn-external scroller-btn-prev" aria-label="Previous image">
-                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-                                   </button>
-                                   <div class="scroller-container flex-grow overflow-hidden">
-                                       <div class="scroller-viewport">
-                                           <div class="scroller-gallery">
-                                               <img src="https://images.unsplash.com/photo-1566324339318-80e46c356976?q=80&w=1974&auto=format&fit=crop" alt="Mattress 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Mattress+1';">
-                                               <img src="https://images.unsplash.com/photo-1616627791431-d5f124c1374a?q=80&w=2070&auto=format&fit=crop" alt="Pillow 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Pillow+1';">
-                                               <img src="https://images.unsplash.com/photo-1590212151088-e8dafd2b9c79?q=80&w=1931&auto=format&fit=crop" alt="Mattress 2" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Mattress+2';">
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <button class="scroller-btn-external scroller-btn-next" aria-label="Next image">
-                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                                   </button>
-                               </div>
-                               <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
-                           </div>
+                       <!-- NEW Simple Header -->
+                       <div class="container mx-auto px-6 pt-16 text-center">
+                           <h2 class="text-4xl md:text-5xl text-black">Comfort & Style</h2>
+                           <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">Explore our premium collection of mattresses, pillows, bedsheets, and covers designed for your ultimate comfort.</p>
                        </div>
-                       <!-- Bedsheets Section -->
-                       <div>
-                           <div class="text-center mb-12">
-                               <h3 class="text-3xl text-black">Bedsheets & Covers</h3>
-                               <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Wrap yourself in luxury with our soft, stylish, and durable bed linens.</p>
-                           </div>
-                           <div class="scroller-wrapper max-w-4xl mx-auto">
-                               <div class="flex items-center justify-center space-x-2 sm:space-x-4">
-                                   <button class="scroller-btn-external scroller-btn-prev" aria-label="Previous image">
-                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-                                   </button>
-                                   <div class="scroller-container flex-grow overflow-hidden">
-                                       <div class="scroller-viewport">
-                                           <div class="scroller-gallery">
-                                               <img src="https://images.unsplash.com/photo-1600585152220-0f7a3704f3d2?q=80&w=2070&auto=format&fit=crop" alt="Bedsheet 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Bedsheet+1';">
-                                               <img src="https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?q=80&w=2070&auto=format&fit=crop" alt="Bed Cover 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Bed+Cover+1';">
-                                               <img src="https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?q=80&w=1932&auto=format&fit=crop" alt="Bedsheet 2" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Bedsheet+2';">
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <button class="scroller-btn-external scroller-btn-next" aria-label="Next image">
-                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                                   </button>
-                               </div>
-                               <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
-                           </div>
-                       </div>
+
+                       <!-- Mattress Scroller Section (REMOVED) -->
+                       
+                       <!-- Bedsheets Scroller Section (REMOVED) -->
                  </div>
              </section>
             <!-- Bedding Products Grid -->
@@ -683,42 +638,15 @@
 
         <!-- Seating Page Wrapper -->
         <div id="seating-page" class="page hidden">
-            <section class="py-20 bg-gray-50">
             <section class="py-20"> <!-- Removed bg-gray-50 -->
                  <div class="container mx-auto px-6">
-                       <section class="py-24 bg-cover bg-center rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop');">
-                           <div class="container mx-auto px-6 text-center bg-black/50 backdrop-blur p-12 rounded-lg max-w-4xl">
-                               <h2 class="text-4xl md:text-5xl text-white mb-4">Stylish Seating Solutions</h2>
-                               <p class="text-lg text-gray-200">From plush beanbags to elegant chairs, find the perfect seating to complement your space.</p>
-                           </div>
-                       </section>
-                       <!-- Seating Section -->
-                       <div class="my-16">
-                           <div class="text-center mb-12">
-                               <h3 class="text-3xl text-black">Beanbags & More</h3>
-                               <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Discover our range of comfortable and trendy seating options.</p>
-                           </div>
-                           <div class="scroller-wrapper max-w-4xl mx-auto">
-                               <div class="flex items-center justify-center space-x-2 sm:space-x-4">
-                                   <button class="scroller-btn-external scroller-btn-prev" aria-label="Previous image">
-                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-                                   </button>
-                                   <div class="scroller-container flex-grow overflow-hidden">
-                                       <div class="scroller-viewport">
-                                           <div class="scroller-gallery">
-                                               <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1916&auto=format&fit=crop" alt="Chair 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Chair+1';">
-                                               <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?q=80&w=1965&auto=format&fit=crop" alt="Beanbag 1" onerror="this.onerror=null;this.src='https::/placehold.co/800x600/cccccc/FFFFFF?text=Beanbag+1';">
-                                               <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=1887&auto=format&fit=crop" alt="Chair 2" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Chair+2';">
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <button class="scroller-btn-external scroller-btn-next" aria-label="Next image">
-                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                                   </button>
-                               </div>
-                               <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
-                           </div>
+                       <!-- NEW Simple Header -->
+                       <div class="container mx-auto px-6 pt-16 text-center">
+                           <h2 class="text-4xl md:text-5xl text-black">Stylish Seating Solutions</h2>
+                           <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">From plush beanbags to elegant chairs, find the perfect seating to complement your space.</p>
                        </div>
+
+                       <!-- Seating Scroller Section (REMOVED) -->
                  </div>
              </section>
             <!-- Seating Products Grid -->
@@ -791,15 +719,13 @@
 
         <!-- Contact Page Wrapper -->
         <div id="contact-page" class="page hidden">
-            <section class="py-20 bg-gray-50">
             <section class="py-20"> <!-- Removed bg-gray-50 -->
                  <div class="container mx-auto px-6">
-                       <section class="py-24 bg-cover bg-center rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?q=80&w=2070&auto=format&fit=crop');">
-                           <div class="container mx-auto px-6 text-center bg-black/50 backdrop-blur p-12 rounded-lg max-w-4xl">
-                               <h2 class="text-4xl md:text-5xl text-white mb-4">Get In Touch</h2>
-                               <p class="text-lg text-gray-200">We're here to help. Contact us for custom orders, support, or any questions you might have.</p>
-                           </div>
-                       </section>
+                       <!-- NEW Simple Header -->
+                       <div class="container mx-auto px-6 pt-16 text-center">
+                           <h2 class="text-4xl md:text-5xl text-black">Get In Touch</h2>
+                           <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">We're here to help. Contact us for custom orders, support, or any questions you might have.</p>
+                       </div>
                        
                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 my-16 items-start">
                             <!-- Contact Form -->
@@ -915,7 +841,7 @@
                         <a href="https://wa.me/9113692176" target="_blank" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="WhatsApp">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.317 4.814 4.896-1.282zM9.062 8.609c-.09-.239-.427-.258-.614-.258-.182 0-.372.016-.546.016-.275 0-.687.119-.942.392-.255.274-.942.918-.942 2.24 0 1.322.965 2.6 1.103 2.76.138.161 1.849 2.958 4.542 4.029 2.257.881 2.694.713 3.39.639.695-.073 2.12-.867 2.417-1.707.296-.84.296-1.56.207-1.711-.09-.151-.327-.24-.687-.421-.36-.182-.942-.464-1.08-.515-.138-.051-.275-.073-.412.073-.138.145-.546.687-.662.825-.116.138-.232.161-.412.073-.182-.088-.771-.28-1.468-.906-.544-.472-.906-1.066-.995-1.246-.09-.182-.015-.274.058-.362.073-.088.161-.231.232-.338.073-.106.09-.182.138-.302.046-.12.023-.231-.023-.318-.046-.088-.412-1.016-.546-1.38z"/></svg>
                         </a>
-                        <a href="https://www.instagram.com/elite_home_decor_official/" target="_blank" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="Instagram">
+                        <a href="https://www.instagram.com/elite.home.decor/" target="_blank" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="Instagram">
                              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.059 1.689.073 4.948.073 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                         </a>
                         <!-- Add Facebook link if available -->
@@ -1119,4 +1045,5 @@
 
 </body>
 </html>
+
 

@@ -800,264 +800,242 @@
 
     <!-- Main script -->
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
+       document.addEventListener('DOMContentLoaded', () => {
 
-            // --- Mobile Menu Toggle ---
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const closeMenuButton = document.getElementById('close-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    // --- Single Page App (SPA) Navigation ---
+    const pages = document.querySelectorAll('.page');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link, .nav-link-cta, .nav-link-logo');
+    const desktopNavLinks = document.querySelectorAll('nav .nav-link'); // Only desktop links for active state
 
-            const openMenu = () => {
-                mobileMenu.classList.remove('hidden');
-                setTimeout(() => {
-                    mobileMenu.classList.add('opacity-100');
-                    mobileMenuPanel.classList.remove('translate-x-full');
-                }, 10); // Short delay to allow display:block to register before transition
-            };
+    function showPage(pageId) {
+        // Remove '#' from pageId if present
+        const cleanPageId = pageId.startsWith('#') ? pageId.substring(1) : pageId;
 
-            const closeMenu = () => {
-                mobileMenuPanel.classList.add('translate-x-full');
-                mobileMenu.classList.remove('opacity-100');
-                setTimeout(() => {
-                    mobileMenu.classList.add('hidden');
-                }, 300); // Wait for transition to finish
-            };
-
-            mobileMenuButton.addEventListener('click', openMenu);
-            closeMenuButton.addEventListener('click', closeMenu);
-            mobileMenu.addEventListener('click', (e) => {
-                if (e.target === mobileMenu) {
-                    closeMenu();
-                }
-            });
-            mobileNavLinks.forEach(link => {
-                link.addEventListener('click', closeMenu);
-            });
-
-            // --- Single Page App Navigation ---
-            const pages = document.querySelectorAll('.page');
-            const navLinks = document.querySelectorAll('.nav-link');
-            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-            const ctaLinks = document.querySelectorAll('.nav-link-cta'); // Hero button, etc.
-            const footerLinks = document.querySelectorAll('.nav-link-footer');
-            const logoLink = document.querySelector('.nav-link-logo');
-
-            const allLinks = [...navLinks, ...mobileLinks, ...ctaLinks, ...footerLinks, logoLink];
-
-            function showPage(pageId) {
-                // Remove '#' from pageId
-                const cleanPageId = pageId.replace('#', '');
-                
-                // Hide all pages
-                pages.forEach(page => {
-                    page.classList.add('hidden');
-                });
-
-                // Show the target page
-                const targetPage = document.getElementById(cleanPageId);
-                if (targetPage) {
-                    targetPage.classList.remove('hidden');
-                    window.scrollTo(0, 0); // Scroll to top on page change
-                } else {
-                    // Fallback to home page if ID is invalid
-                    document.getElementById('home-page').classList.remove('hidden');
-                }
-
-                // Update active state for desktop nav
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === pageId) {
-                        link.classList.add('active');
-                    } else {
-                        link.classList.remove('active');
-                    }
-                });
+        pages.forEach(page => {
+            if (page.id === cleanPageId) {
+                page.classList.remove('hidden');
+            } else {
+                page.classList.add('hidden');
             }
-
-            allLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('href');
-                    
-                    if (targetId && targetId.startsWith('#')) {
-                        // Update URL hash
-                        window.location.hash = targetId;
-                        // Show the page
-                        showPage(targetId);
-                    }
-                });
-            });
-
-            // --- Initial Page Load ---
-            // On load, show page based on hash or default to home
-            let initialPage = window.location.hash || '#home-page';
-            if (initialPage === '#') initialPage = '#home-page';
-            showPage(initialPage);
-
-
-            // --- Image Scroller Initialization ---
-            const scrollerWrappers = document.querySelectorAll('.scroller-wrapper');
-
-            scrollerWrappers.forEach(wrapper => {
-                const gallery = wrapper.querySelector('.scroller-gallery');
-                const prevBtn = wrapper.querySelector('.scroller-btn-prev');
-                const nextBtn = wrapper.querySelector('.scroller-btn-next');
-                const paginationContainer = wrapper.querySelector('.scroller-pagination');
-                const images = gallery.querySelectorAll('img');
-                
-                if (images.length === 0) return; // Skip if no images
-
-                let currentIndex = 0;
-                let paginationDots = [];
-
-                // Create pagination dots
-                if (paginationContainer) {
-                    images.forEach((_, index) => {
-                        const dot = document.createElement('button');
-                        dot.classList.add('pagination-dot');
-                        dot.setAttribute('aria-label', `Go to image ${index + 1}`);
-                        if (index === 0) dot.classList.add('active');
-                        
-                        dot.addEventListener('click', () => {
-                            goToSlide(index);
-                        });
-                        
-                        paginationContainer.appendChild(dot);
-                        paginationDots.push(dot);
-                    });
-                }
-
-                function updateScroller() {
-                    gallery.style.transform = `translateX(-${currentIndex * 100}%)`;
-                    if (paginationContainer) {
-                        paginationDots.forEach((dot, index) => {
-                            dot.classList.toggle('active', index === currentIndex);
-                        });
-                    }
-                }
-
-                function goToSlide(index) {
-                    currentIndex = (index + images.length) % images.length;
-                    updateScroller();
-                }
-
-                if (prevBtn) {
-                    prevBtn.addEventListener('click', () => {
-                        goToSlide(currentIndex - 1);
-                    });
-                }
-
-                if (nextBtn) {
-                    nextBtn.addEventListener('click', () => {
-                        goToSlide(currentIndex + 1);
-                    });
-                }
-
-                 Auto-play 
-                setInterval(() => {
-                    goToSlide(currentIndex + 1);
-                }, 5000);
-            });
-
-
-            // --- Footer Copyright Year ---
-            const yearSpan = document.getElementById('current-year');
-            if (yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
-            }
-
-            // --- NEW: Custom Message Modal Logic ---
-            const modalOverlay = document.getElementById('message-modal-overlay');
-            const modalText = document.getElementById('message-modal-text');
-            const modalCloseBtn = document.getElementById('message-modal-close');
-
-            function showMessage(message) {
-                modalText.textContent = message;
-                modalOverlay.classList.add('visible');
-            }
-
-            function closeMessage() {
-                modalOverlay.classList.remove('visible');
-            }
-
-            modalCloseBtn.addEventListener('click', closeMessage);
-            modalOverlay.addEventListener('click', (e) => {
-                if (e.target === modalOverlay) {
-                    closeMessage();
-                }
-            });
-
-            // --- NEW: WhatsApp Form Handling ---
-            
-            // Your WhatsApp number (replace with your actual number including country code)
-            const yourWhatsAppNumber = '919113692176'; // e.g., '911234567890'
-
-            function handleWhatsAppSubmit(formPrefix, interest) {
-                const name = document.getElementById(`name-${formPrefix}`).value;
-                const phone = document.getElementById(`phone-${formPrefix}`).value;
-                let interestedIn = interest;
-                let message = document.getElementById(`message-${formPrefix}`).value;
-
-                // Validation
-                if (!name.trim()) {
-                    showMessage('Please enter your name.');
-                    return;
-                }
-                if (!phone.trim()) {
-                    showMessage('Please enter your phone number.');
-                    return;
-                }
-                if (!message.trim()) {
-                    showMessage('Please enter a message.');
-                    return;
-                }
-
-                // Get "Interested In" value if it exists for this form
-                const interestSelect = document.getElementById(`interested-${formPrefix}`);
-                if (interestSelect) {
-                    interestedIn = interestSelect.value;
-                }
-
-                // Build the message
-                let prefilledMessage = `Hello, I'm interested in *${interestedIn}*.\n\n`;
-                prefilledMessage += `*Name:* ${name}\n`;
-                prefilledMessage += `*Phone:* ${phone}\n\n`;
-                prefilledMessage += `*Message:*\n${message}`;
-
-                // Create WhatsApp URL
-                const whatsappURL = `https://wa.me/${yourWhatsAppNumber}?text=${encodeURIComponent(prefilledMessage)}`;
-                
-                // Open WhatsApp
-                window.open(whatsappURL, '_blank');
-            }
-
-            // Attach listeners to all 5 buttons
-            document.getElementById('submit-whatsapp-home').addEventListener('click', () => {
-                // "interested" is dynamic from the dropdown
-                handleWhatsAppSubmit('home', ''); 
-            });
-
-            document.getElementById('submit-whatsapp-curtains').addEventListener('click', () => {
-                handleWhatsAppSubmit('curtains', 'Custom Curtains');
-            });
-
-            document.getElementById('submit-whatsapp-bedding').addEventListener('click', () => {
-                handleWhatsAppSubmit('bedding', 'Bedding/Mattresses');
-            });
-
-            document.getElementById('submit-whatsapp-seating').addEventListener('click', () => {
-                handleWhatsAppSubmit('seating', 'Beanbags/Seating');
-            });
-
-            document.getElementById('submit-whatsapp-contact').addEventListener('click', () => {
-                handleWhatsAppSubmit('contact', 'General Inquiry');
-            });
-
         });
+        window.scrollTo(0, 0); // Scroll to top on page change
+
+        // Update active state for desktop nav
+        desktopNavLinks.forEach(link => {
+            if (link.getAttribute('href') === `#${cleanPageId}`) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+
+        // Update URL hash
+        window.location.hash = `#${cleanPageId}`;
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pageId = link.getAttribute('href');
+            if (pageId && pageId.startsWith('#')) {
+                showPage(pageId);
+            }
+            // Close mobile menu if a link is clicked
+            if (link.classList.contains('mobile-nav-link')) {
+                closeMobileMenu();
+            }
+        });
+    });
+
+    // Show initial page based on hash or default to home
+    const initialPageId = window.location.hash || '#home-page';
+    showPage(initialPageId);
+
+    // --- Mobile Menu ---
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const closeMenuButton = document.getElementById('close-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+
+    function openMobileMenu() {
+        mobileMenu.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+        setTimeout(() => {
+            mobileMenu.classList.remove('opacity-0');
+            mobileMenuPanel.classList.remove('translate-x-full');
+        }, 10); // Short delay for transition
+    }
+
+    function closeMobileMenu() {
+        mobileMenu.classList.add('opacity-0');
+        mobileMenuPanel.classList.add('translate-x-full');
+        document.body.style.overflow = ''; // Restore scroll
+        setTimeout(() => {
+            mobileMenu.classList.add('hidden');
+        }, 300); // Wait for transition to finish
+    }
+
+    mobileMenuButton.addEventListener('click', openMobileMenu);
+    closeMenuButton.addEventListener('click', closeMobileMenu);
+    // Close menu if clicking on the background overlay
+    mobileMenu.addEventListener('click', (e) => {
+        if (e.target === mobileMenu) {
+            closeMobileMenu();
+        }
+    });
+
+    // --- Image Scroller Initialization ---
+    // Find all scroller-wrapper elements and initialize them
+    document.querySelectorAll('.scroller-wrapper').forEach(scrollerWrapper => {
+        initializeScroller(scrollerWrapper);
+    });
+
+    function initializeScroller(wrapper) {
+        const gallery = wrapper.querySelector('.scroller-gallery');
+        const prevBtn = wrapper.querySelector('.scroller-btn-prev');
+        const nextBtn = wrapper.querySelector('.scroller-btn-next');
+        const paginationContainer = wrapper.querySelector('.scroller-pagination');
+        
+        if (!gallery) return; // Exit if no gallery found in this wrapper
+
+        const images = gallery.querySelectorAll('img');
+        const totalImages = images.length;
+        let currentIndex = 0;
+        let paginationDots = [];
+
+        if (totalImages <= 1) {
+            // Hide controls if only one image
+            if(prevBtn) prevBtn.style.display = 'none';
+            if(nextBtn) nextBtn.style.display = 'none';
+            if(paginationContainer) paginationContainer.style.display = 'none';
+            return;
+        }
+        
+        // Create pagination dots
+        if (paginationContainer) {
+            for (let i = 0; i < totalImages; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('pagination-dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                paginationContainer.appendChild(dot);
+                paginationDots.push(dot);
+            }
+        }
+
+        function updateGallery() {
+            // Update gallery transform
+            gallery.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            // Update pagination dots
+            if (paginationContainer) {
+                paginationDots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+        }
+
+        function goToSlide(index) {
+            currentIndex = (index + totalImages) % totalImages; // Wrap around
+            updateGallery();
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                goToSlide(currentIndex - 1);
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                goToSlide(currentIndex + 1);
+            });
+        }
+
+        // Initial update
+        updateGallery();
+    }
+
+    // --- Footer Copyright Year ---
+    const copyrightYear = document.getElementById('copyright-year');
+    if (copyrightYear) {
+        copyrightYear.textContent = new Date().getFullYear();
+    }
+
+    // --- WhatsApp Form Submission ---
+    const yourWhatsAppNumber = '919113692176'; // Your WhatsApp number with country code, no '+'
+
+    // Custom Alert Modal
+    const customAlert = document.getElementById('custom-alert');
+    const alertMessage = document.getElementById('alert-message');
+    const closeAlertButton = document.getElementById('close-alert');
+    
+    function showAlert(message) {
+        alertMessage.textContent = message;
+        customAlert.classList.remove('hidden');
+    }
+    
+    if(closeAlertButton) {
+        closeAlertButton.addEventListener('click', () => {
+            customAlert.classList.add('hidden');
+        });
+    }
+
+    function handleWhatsAppSubmit(buttonId, nameId, phoneId, interestedId, messageId) {
+        const submitButton = document.getElementById(buttonId);
+        if (!submitButton) return;
+
+        submitButton.addEventListener('click', () => {
+            const name = document.getElementById(nameId)?.value.trim();
+            const phone = document.getElementById(phoneId)?.value.trim();
+            const interested = document.getElementById(interestedId)?.value;
+            const message = document.getElementById(messageId)?.value.trim();
+
+            // Validation
+            if (!name) {
+                showAlert('Please enter your name.');
+                return;
+            }
+            if (!phone) {
+                showAlert('Please enter your phone number.');
+                return;
+            }
+            if (!message) {
+                showAlert('Please enter a message.');
+                return;
+            }
+
+            // Build the message
+            let waMessage = `Hello Elite Home Decor,\n\n`;
+            waMessage += `*Name:* ${name}\n`;
+            waMessage += `*Phone:* ${phone}\n`;
+            if (interested) { // Interested field is optional in some forms
+                 waMessage += `*Interested In:* ${interested}\n`;
+            }
+            waMessage += `*Message:* ${message}\n`;
+
+            // Create WhatsApp URL
+            const encodedMessage = encodeURIComponent(waMessage);
+            const waUrl = `https://wa.me/${yourWhatsAppNumber}?text=${encodedMessage}`;
+
+            // Open WhatsApp
+            window.open(waUrl, '_blank');
+        });
+    }
+
+    // Initialize all 5 forms
+    handleWhatsAppSubmit('submit-whatsapp-home', 'name-home', 'phone-home', 'interested-home', 'message-home');
+    handleWhatsAppSubmit('submit-whatsapp-curtains', 'name-curtains', 'phone-curtains', null, 'message-curtains');
+    handleWhatsAppSubmit('submit-whatsapp-bedding', 'name-bedding', 'phone-bedding', null, 'message-bedding');
+    handleWhatsAppSubmit('submit-whatsapp-seating', 'name-seating', 'phone-seating', null, 'message-seating');
+    handleWhatsAppSubmit('submit-whatsapp-contact', 'name-contact', 'phone-contact', 'interested-contact', 'message-contact');
+
+});
+
     </script>
 </body>
 </html>
+
 
 
 

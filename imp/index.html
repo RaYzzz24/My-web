@@ -800,7 +800,7 @@
 
     <!-- Main script -->
     <script>
-       document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener('DOMContentLoaded', () => {
 
     // --- Single Page App (SPA) Navigation ---
     const pages = document.querySelectorAll('.page');
@@ -808,7 +808,6 @@
     const desktopNavLinks = document.querySelectorAll('nav .nav-link'); // Only desktop links for active state
 
     function showPage(pageId) {
-        // Remove '#' from pageId if present
         const cleanPageId = pageId.startsWith('#') ? pageId.substring(1) : pageId;
 
         pages.forEach(page => {
@@ -818,9 +817,8 @@
                 page.classList.add('hidden');
             }
         });
-        window.scrollTo(0, 0); // Scroll to top on page change
+        window.scrollTo(0, 0);
 
-        // Update active state for desktop nav
         desktopNavLinks.forEach(link => {
             if (link.getAttribute('href') === `#${cleanPageId}`) {
                 link.classList.add('active');
@@ -829,7 +827,6 @@
             }
         });
 
-        // Update URL hash
         window.location.hash = `#${cleanPageId}`;
     }
 
@@ -840,14 +837,12 @@
             if (pageId && pageId.startsWith('#')) {
                 showPage(pageId);
             }
-            // Close mobile menu if a link is clicked
             if (link.classList.contains('mobile-nav-link')) {
                 closeMobileMenu();
             }
         });
     });
 
-    // Show initial page based on hash or default to home
     const initialPageId = window.location.hash || '#home-page';
     showPage(initialPageId);
 
@@ -859,35 +854,35 @@
 
     function openMobileMenu() {
         mobileMenu.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Prevent background scroll
+        document.body.style.overflow = 'hidden';
         setTimeout(() => {
             mobileMenu.classList.remove('opacity-0');
             mobileMenuPanel.classList.remove('translate-x-full');
-        }, 10); // Short delay for transition
+        }, 10);
     }
 
     function closeMobileMenu() {
         mobileMenu.classList.add('opacity-0');
         mobileMenuPanel.classList.add('translate-x-full');
-        document.body.style.overflow = ''; // Restore scroll
+        document.body.style.overflow = '';
         setTimeout(() => {
             mobileMenu.classList.add('hidden');
-        }, 300); // Wait for transition to finish
+        }, 300);
     }
 
-    mobileMenuButton.addEventListener('click', openMobileMenu);
-    closeMenuButton.addEventListener('click', closeMobileMenu);
-    // Close menu if clicking on the background overlay
-    mobileMenu.addEventListener('click', (e) => {
-        if (e.target === mobileMenu) {
-            closeMobileMenu();
-        }
-    });
+    if (mobileMenuButton) mobileMenuButton.addEventListener('click', openMobileMenu);
+    if (closeMenuButton) closeMenuButton.addEventListener('click', closeMobileMenu);
+    if (mobileMenu) {
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                closeMobileMenu();
+            }
+        });
+    }
 
-    // --- Image Scroller Initialization ---
-    // Find all scroller-wrapper elements and initialize them
-    document.querySelectorAll('.scroller-wrapper').forEach(scrollerWrapper => {
-        initializeScroller(scrollerWrapper);
+    // --- Image Scroller ---
+    document.querySelectorAll('.scroller-wrapper').forEach(wrapper => {
+        initializeScroller(wrapper);
     });
 
     function initializeScroller(wrapper) {
@@ -895,8 +890,8 @@
         const prevBtn = wrapper.querySelector('.scroller-btn-prev');
         const nextBtn = wrapper.querySelector('.scroller-btn-next');
         const paginationContainer = wrapper.querySelector('.scroller-pagination');
-        
-        if (!gallery) return; // Exit if no gallery found in this wrapper
+
+        if (!gallery) return;
 
         const images = gallery.querySelectorAll('img');
         const totalImages = images.length;
@@ -904,14 +899,12 @@
         let paginationDots = [];
 
         if (totalImages <= 1) {
-            // Hide controls if only one image
-            if(prevBtn) prevBtn.style.display = 'none';
-            if(nextBtn) nextBtn.style.display = 'none';
-            if(paginationContainer) paginationContainer.style.display = 'none';
+            if (prevBtn) prevBtn.style.display = 'none';
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (paginationContainer) paginationContainer.style.display = 'none';
             return;
         }
-        
-        // Create pagination dots
+
         if (paginationContainer) {
             for (let i = 0; i < totalImages; i++) {
                 const dot = document.createElement('div');
@@ -924,10 +917,7 @@
         }
 
         function updateGallery() {
-            // Update gallery transform
             gallery.style.transform = `translateX(-${currentIndex * 100}%)`;
-            
-            // Update pagination dots
             if (paginationContainer) {
                 paginationDots.forEach((dot, index) => {
                     dot.classList.toggle('active', index === currentIndex);
@@ -936,46 +926,37 @@
         }
 
         function goToSlide(index) {
-            currentIndex = (index + totalImages) % totalImages; // Wrap around
+            currentIndex = (index + totalImages) % totalImages;
             updateGallery();
         }
 
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                goToSlide(currentIndex - 1);
-            });
-        }
-        
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                goToSlide(currentIndex + 1);
-            });
-        }
+        if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+        if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
 
-        // Initial update
         updateGallery();
     }
 
-    // --- Footer Copyright Year ---
+    // --- Footer Year ---
     const copyrightYear = document.getElementById('copyright-year');
-    if (copyrightYear) {
-        copyrightYear.textContent = new Date().getFullYear();
-    }
+    if (copyrightYear) copyrightYear.textContent = new Date().getFullYear();
 
-    // --- WhatsApp Form Submission ---
-    const yourWhatsAppNumber = '919113692176'; // Your WhatsApp number with country code, no '+'
+    // --- WhatsApp Integration ---
+    const yourWhatsAppNumber = '919113692176'; // Correct format
 
-    // Custom Alert Modal
     const customAlert = document.getElementById('custom-alert');
     const alertMessage = document.getElementById('alert-message');
     const closeAlertButton = document.getElementById('close-alert');
-    
+
     function showAlert(message) {
+        if (!customAlert || !alertMessage) {
+            alert(message);
+            return;
+        }
         alertMessage.textContent = message;
         customAlert.classList.remove('hidden');
     }
-    
-    if(closeAlertButton) {
+
+    if (closeAlertButton) {
         closeAlertButton.addEventListener('click', () => {
             customAlert.classList.add('hidden');
         });
@@ -988,42 +969,22 @@
         submitButton.addEventListener('click', () => {
             const name = document.getElementById(nameId)?.value.trim();
             const phone = document.getElementById(phoneId)?.value.trim();
-            const interested = document.getElementById(interestedId)?.value;
+            const interested = interestedId ? document.getElementById(interestedId)?.value : '';
             const message = document.getElementById(messageId)?.value.trim();
 
-            // Validation
-            if (!name) {
-                showAlert('Please enter your name.');
-                return;
-            }
-            if (!phone) {
-                showAlert('Please enter your phone number.');
-                return;
-            }
-            if (!message) {
-                showAlert('Please enter a message.');
-                return;
-            }
+            if (!name) return showAlert('Please enter your name.');
+            if (!phone) return showAlert('Please enter your phone number.');
+            if (!message) return showAlert('Please enter a message.');
 
-            // Build the message
-            let waMessage = `Hello Elite Home Decor,\n\n`;
-            waMessage += `*Name:* ${name}\n`;
-            waMessage += `*Phone:* ${phone}\n`;
-            if (interested) { // Interested field is optional in some forms
-                 waMessage += `*Interested In:* ${interested}\n`;
-            }
-            waMessage += `*Message:* ${message}\n`;
+            let waMessage = `Hello Elite Home Decor,\n\n*Name:* ${name}\n*Phone:* ${phone}`;
+            if (interested) waMessage += `\n*Interested In:* ${interested}`;
+            waMessage += `\n*Message:* ${message}`;
 
-            // Create WhatsApp URL
-            const encodedMessage = encodeURIComponent(waMessage);
-            const waUrl = `https://wa.me/${yourWhatsAppNumber}?text=${encodedMessage}`;
-
-            // Open WhatsApp
+            const waUrl = `https://wa.me/${yourWhatsAppNumber}?text=${encodeURIComponent(waMessage)}`;
             window.open(waUrl, '_blank');
         });
     }
 
-    // Initialize all 5 forms
     handleWhatsAppSubmit('submit-whatsapp-home', 'name-home', 'phone-home', 'interested-home', 'message-home');
     handleWhatsAppSubmit('submit-whatsapp-curtains', 'name-curtains', 'phone-curtains', null, 'message-curtains');
     handleWhatsAppSubmit('submit-whatsapp-bedding', 'name-bedding', 'phone-bedding', null, 'message-bedding');
@@ -1035,6 +996,7 @@
     </script>
 </body>
 </html>
+
 
 
 

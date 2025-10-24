@@ -20,7 +20,7 @@
             font-weight: 700;
         }
         /* Underline accent for headings */
-        h2::after {
+        h2::after, h3::after {
             content: '';
             display: block;
             width: 60px;
@@ -28,6 +28,19 @@
             background-color: #DC2626; /* Bold Red */
             margin: 16px auto 0;
         }
+        /* Remove auto-underline for h3s in cards */
+        .feature-card h3::after,
+        .text-center.md\:text-left h3::after,
+        .text-center .p-6 h3::after {
+             margin: 16px auto 0; /* Keep margin for spacing */
+             background-color: transparent; /* Make it invisible */
+        }
+        /* Keep underline for specific h3s */
+        .scroller-wrapper h3::after {
+            background-color: #DC2626; /* Bold Red */
+        }
+
+
         /* Styles for the horizontal image scroller */
         .scroller-viewport {
             height: 60vh; /* Viewport height */
@@ -114,6 +127,7 @@
             font-weight: 500;
             transition: color 0.3s ease;
             padding-bottom: 4px;
+            cursor: pointer; /* Add cursor pointer */
         }
         .nav-link:hover {
             color: #DC2626; /* red-600 */
@@ -129,9 +143,39 @@
             background-color: #DC2626;
             transition: width 0.3s ease;
         }
-        .nav-link:hover::after {
+        .nav-link:hover::after,
+        .nav-link.active::after { /* Add active state */
             width: 100%;
         }
+        .mobile-nav-link {
+            cursor: pointer;
+        }
+
+        /* NEW Product Grid Card Styles */
+        .product-grid-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-grid-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .product-grid-card img {
+            width: 100%;
+            height: 200px; /* Fixed height for consistency */
+            object-fit: cover;
+        }
+        .product-grid-card-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #1f2937; /* Dark gray */
+            padding: 1rem;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body class="text-gray-800">
@@ -142,7 +186,7 @@
             <div class="container mx-auto px-4 flex justify-between items-center">
                 <!-- Left: Logo -->
                 <div class="flex-shrink-0">
-                    <a href="#home-page">
+                    <a href="#home-page" class="nav-link-logo">
                         <img src="logo.png" alt="Elite Home Decor Logo" class="h-12 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/120x50/000000/FFFFFF?text=ELITE';">
                     </a>
                 </div>
@@ -207,7 +251,7 @@
                 <div class="relative z-10 text-center p-6">
                     <h1 class="text-4xl md:text-6xl font-bold mb-4" style="font-family: 'Cormorant Garamond', serif;">Crafting Elegance for Your Home</h1>
                     <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">Discover bespoke curtains and premium furnishings, tailored to reflect your unique style.</p>
-                    <a href="#curtains-page" class="bg-red-600 text-white py-3 px-8 rounded-full hover:bg-red-700 transition-all duration-300 font-semibold text-lg transform hover:scale-105">Explore Our Curtains</a>
+                    <a href="#curtains-page" class="nav-link-cta bg-red-600 text-white py-3 px-8 rounded-full hover:bg-red-700 transition-all duration-300 font-semibold text-lg transform hover:scale-105">Explore Our Curtains</a>
                 </div>
             </section>
             
@@ -218,7 +262,7 @@
                         <p class="text-gray-600 mt-4 max-w-3xl mx-auto">Your one-stop shop for premium home furnishings. While we specialize in custom-made curtains, we also offer a wide selection of mattresses, pillows, beanbags, bedsheets, and bedcovers to complete your home's look.</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <a href="#curtains-page" class="feature-card-link block">
+                        <a href="#curtains-page" class="feature-card-link nav-link-cta block">
                             <div class="feature-card">
                                 <div class="feature-card-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" /></svg>
@@ -227,7 +271,7 @@
                                 <p class="text-gray-600">Tailor-made curtains to perfectly fit your windows and style. Our specialty!</p>
                             </div>
                         </a>
-                        <a href="#bedding-page" class="feature-card-link block">
+                        <a href="#bedding-page" class="feature-card-link nav-link-cta block">
                             <div class="feature-card">
                                 <div class="feature-card-icon">
                                      <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg>
@@ -236,19 +280,19 @@
                                 <p class="text-gray-600">Discover unparalleled comfort with our range of mattresses and pillows.</p>
                             </div>
                         </a>
-                        <a href="#seating-page" class="feature-card-link block">
+                        <a href="#seating-page" class="feature-card-link nav-link-cta block">
                             <div class="feature-card">
                                  <div class="feature-card-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 2.25c-2.59 1.9-3.97 4.88-3.97 8.25a14.985 14.985 0 003.37 9.31l4.16-4.16zM9.63 2.25L12 6.63l2.37-4.38M12 21.75l2.37-4.38-2.37-4.16-2.37 4.16L12 21.75z" /></svg>
+                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.63 2.25c-2.59 1.9-3.97 4.88-3.97 8.25a14.985 14.985 0 003.37 9.31l4.16-4.16zM9.63 2.25L12 6.63l2.37-4.38M12 21.75l2.37-4.38-2.37-4.16-2.37 4.16L12 21.75z" /></svg>
                                  </div>
                                 <h3 class="text-2xl text-black mb-2">Beanbags & Seating</h3>
                                 <p class="text-gray-600">Stylish and comfortable beanbags and other seating solutions.</p>
                             </div>
                         </a>
-                        <a href="#bedding-page" class="feature-card-link block">
+                        <a href="#bedding-page" class="feature-card-link nav-link-cta block">
                             <div class="feature-card">
                                  <div class="feature-card-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l3 3m0 0l3-3m-3 3v-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l3 3m0 0l3-3m-3 3v-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                  </div>
                                 <h3 class="text-2xl text-black mb-2">Bedsheets & Covers</h3>
                                 <p class="text-gray-600">High-quality bedsheets and covers in a variety of designs.</p>
@@ -294,71 +338,71 @@
             <!-- Contact and Location Sections for Home Page -->
             <section class="py-20 bg-white">
                  <div class="container mx-auto px-6 max-w-3xl">
-                     <div class="text-center mb-12">
-                         <h2 class="text-4xl text-black">Enhance Your Home</h2>
-                         <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
-                     </div>
-                     <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
-                         <form action="https://formspree.io/f/zray2524" method="POST">
-                             <div class="mb-5">
-                                 <label for="name-home" class="block text-gray-800 font-semibold mb-2">Name:</label>
-                                 <input type="text" id="name-home" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
-                             </div>
-                             <div class="mb-5">
-                                 <label for="email-home" class="block text-gray-800 font-semibold mb-2">Email:</label>
-                                 <input type="email" id="email-home" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
-                             </div>
-                             <div class="mb-5">
-                                 <label for="interested-home" class="block text-gray-800 font-semibold mb-2">Interested In:</label>
-                                 <select id="interested-home" name="interested" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-white">
-                                     <option value="Custom Curtains">Custom Curtains</option>
-                                     <option value="Bedding">Bedding (Mattress, Bedsheets, etc.)</option>
-                                     <option value="Seating">Seating (Beanbags, Chairs, etc.)</option>
-                                     <option value="Other">Other</option>
-                                 </select>
-                             </div>
-                             <div class="mb-8">
-                                 <label for="message-home" class="block text-gray-800 font-semibold mb-2">Message:</label>
-                                 <textarea id="message-home" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"></textarea>
-                             </div>
-                             <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-lg hover:bg-black transition-colors font-bold text-lg shadow-md hover:shadow-lg">Submit Inquiry</button>
-                         </form>
-                         <div class="text-center mt-10">
-                            <p class="text-gray-600 mb-4">Or connect with us directly:</p>
-                            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <a href="https://wa.me/9113692176" target="_blank" class="inline-block bg-black text-white py-3 px-8 rounded-lg hover:bg-gray-800 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
-                                    <span class="flex items-center justify-center space-x-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.317 4.814 4.896-1.282zM9.062 8.609c-.09-.239-.427-.258-.614-.258-.182 0-.372.016-.546.016-.275 0-.687.119-.942.392-.255.274-.942.918-.942 2.24 0 1.322.965 2.6 1.103 2.76.138.161 1.849 2.958 4.542 4.029 2.257.881 2.694.713 3.39.639.695-.073 2.12-.867 2.417-1.707.296-.84.296-1.56.207-1.711-.09-.151-.327-.24-.687-.421-.36-.182-.942-.464-1.08-.515-.138-.051-.275-.073-.412.073-.138.145-.546.687-.662.825-.116.138-.232.161-.412.073-.182-.088-.771-.28-1.468-.906-.544-.472-.906-1.066-.995-1.246-.09-.182-.015-.274.058-.362.073-.088.161-.231.232-.338.073-.106.09-.182.138-.302.046-.12.023-.231-.023-.318-.046-.088-.412-1.016-.546-1.38z"/></svg>
-                                        <span>Chat on WhatsApp</span>
-                                    </span>
-                                </a>
-                                <a href="mailto:elitehomedecor.in@gmail.com" class="inline-block bg-red-600 text-white py-3 px-8 rounded-lg hover:bg-red-700 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
-                                    <span class="flex items-center justify-center space-x-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                                        <span>Send an Email</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                     </div>
+                       <div class="text-center mb-12">
+                           <h2 class="text-4xl text-black">Enhance Your Home</h2>
+                           <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
+                       </div>
+                       <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
+                           <form action="https://formspree.io/f/zray2524" method="POST">
+                               <div class="mb-5">
+                                   <label for="name-home" class="block text-gray-800 font-semibold mb-2">Name:</label>
+                                   <input type="text" id="name-home" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                               </div>
+                               <div class="mb-5">
+                                   <label for="phone-home" class="block text-gray-800 font-semibold mb-2">Phone Number:</label>
+                                   <input type="tel" id="phone-home" name="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                               </div>
+                               <div class="mb-5">
+                                   <label for="interested-home" class="block text-gray-800 font-semibold mb-2">Interested In:</label>
+                                   <select id="interested-home" name="interested" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-white">
+                                       <option value="Custom Curtains">Custom Curtains</option>
+                                       <option value="Bedding">Bedding (Mattress, Bedsheets, etc.)</option>
+                                       <option value="Seating">Seating (Beanbags, Chairs, etc.)</option>
+                                       <option value="Other">Other</option>
+                                   </select>
+                               </div>
+                               <div class="mb-8">
+                                   <label for="message-home" class="block text-gray-800 font-semibold mb-2">Message:</label>
+                                   <textarea id="message-home" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"></textarea>
+                               </div>
+                               <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-lg hover:bg-black transition-colors font-bold text-lg shadow-md hover:shadow-lg">Submit Inquiry</button>
+                           </form>
+                           <div class="text-center mt-10">
+                               <p class="text-gray-600 mb-4">Or connect with us directly:</p>
+                               <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                   <a href="https://wa.me/9113692176" target="_blank" class="inline-block bg-black text-white py-3 px-8 rounded-lg hover:bg-gray-800 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
+                                       <span class="flex items-center justify-center space-x-3">
+                                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.317 4.814 4.896-1.282zM9.062 8.609c-.09-.239-.427-.258-.614-.258-.182 0-.372.016-.546.016-.275 0-.687.119-.942.392-.255.274-.942.918-.942 2.24 0 1.322.965 2.6 1.103 2.76.138.161 1.849 2.958 4.542 4.029 2.257.881 2.694.713 3.39.639.695-.073 2.12-.867 2.417-1.707.296-.84.296-1.56.207-1.711-.09-.151-.327-.24-.687-.421-.36-.182-.942-.464-1.08-.515-.138-.051-.275-.073-.412.073-.138.145-.546.687-.662.825-.116.138-.232.161-.412.073-.182-.088-.771-.28-1.468-.906-.544-.472-.906-1.066-.995-1.246-.09-.182-.015-.274.058-.362.073-.088.161-.231.232-.338.073-.106.09-.182.138-.302.046-.12.023-.231-.023-.318-.046-.088-.412-1.016-.546-1.38z"/></svg>
+                                           <span>Chat on WhatsApp</span>
+                                       </span>
+                                   </a>
+                                   <a href="mailto:elitehomedecor.in@gmail.com" class="inline-block bg-red-600 text-white py-3 px-8 rounded-lg hover:bg-red-700 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
+                                       <span class="flex items-center justify-center space-x-3">
+                                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                           <span>Send an Email</span>
+                                       </span>
+                                   </a>
+                               </div>
+                           </div>
+                       </div>
                  </div>
              </section>
              <section class="py-20 bg-gray-50">
                  <div class="container mx-auto px-6">
-                     <div class="text-center mb-12">
-                         <h2 class="text-4xl text-black">Locate Our Store</h2>
-                         <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Visit us in person to see our full collection and get expert advice.</p>
-                     </div>
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                         <div class="w-full h-96 rounded-lg shadow-2xl overflow-hidden">
-                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.820352528148!2d77.59397461521406!3d13.047192716768393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17d8e2a392e9%3A0x6e8f4705ec4a08a!2sAnjaneya%20Temple%20St%2C%20Kempapura%2C%20Hebbal%2C%20Bengaluru%2C%20Karnataka%20560024!5e0!3m2!1sen!2sin!4v1668176881954!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                         </div>
-                         <div class="text-center md:text-left">
-                             <h3 class="text-3xl text-black mb-4">Visit Us</h3>
-                             <p class="text-lg text-gray-700 mb-2"><strong>Address:</strong>#38, Anjeneya Temple Street , Kempapura, Bengaluru - 560024</p>
-                             <p class="text-lg text-gray-700"><strong>Hours:</strong> Mon - Sat, 10:00 AM - 9:00 PM</p>
-                         </div>
-                     </div>
+                       <div class="text-center mb-12">
+                           <h2 class="text-4xl text-black">Locate Our Store</h2>
+                           <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Visit us in person to see our full collection and get expert advice.</p>
+                       </div>
+                       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                           <div class="w-full h-96 rounded-lg shadow-2xl overflow-hidden">
+                               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.820352528148!2d77.59397461521406!3d13.047192716768393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17d8e2a392e9%3A0x6e8f4705ec4a08a!2sAnjaneya%20Temple%20St%2C%20Kempapura%2C%20Hebbal%2C%20Bengaluru%2C%20Karnataka%20560024!5e0!3m2!1sen!2sin!4v1668176881954!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                           </div>
+                           <div class="text-center md:text-left">
+                               <h3 class="text-3xl text-black mb-4">Visit Us</h3>
+                               <p class="text-lg text-gray-700 mb-2"><strong>Address:</strong>#38, Anjeneya Temple Street , Kempapura, Bengaluru - 560024</p>
+                               <p class="text-lg text-gray-700"><strong>Hours:</strong> Mon - Sat, 10:00 AM - 9:00 PM</p>
+                           </div>
+                       </div>
                  </div>
              </section>
         </div>
@@ -366,217 +410,273 @@
         <!-- Curtains Page Wrapper -->
         <div id="curtains-page" class="page hidden">
              <section class="py-20 bg-gray-50">
+             <section class="py-20"> <!-- Removed bg-gray-50 -->
                  <div class="container mx-auto px-6">
-                     <section class="py-24 bg-cover bg-center rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1533757875211-3715b0f92614?q=80&w=2070&auto=format&fit=crop')">
-                         <div class="container mx-auto px-6 text-center bg-black/50 backdrop-blur p-12 rounded-lg max-w-4xl">
-                             <h2 class="text-4xl md:text-5xl text-white mb-4">Our Customized Curtains</h2>
-                             <p class="text-lg text-gray-200">Browse our collection of high-quality, customized curtains for every season. Elegance tailored for your home.</p>
-                         </div>
-                     </section>
-                     <!-- Main Curtain Section -->
-                     <div class="my-16">
-                         <div class="text-center mb-12">
-                             <h3 class="text-3xl text-black">Main Curtain Collection</h3>
-                             <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Our primary collection of elegant designs, crafted with the finest materials for a timeless look.</p>
-                         </div>
-                         <div class="scroller-wrapper max-w-4xl mx-auto">
-                             <div class="flex items-center justify-center space-x-2 sm:space-x-4">
-                                 <button class="scroller-btn-external scroller-btn-prev" aria-label="Previous image">
-                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-                                 </button>
-                                 <div class="scroller-container flex-grow overflow-hidden">
-                                     <div class="scroller-viewport">
-                                         <div class="scroller-gallery">
-                                             <img src="one.jpg?q=80&w=1887&auto=format&fit=crop" alt="Main Curtain 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Curtain+1';">
-                                             <img src="sum1.jpg?q=80&w=1887&auto=format&fit=crop" alt="Main Curtain 2" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Curtain+2';">
-                                             <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=2070&auto=format&fit=crop" alt="Main Curtain 3">
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <button class="scroller-btn-external scroller-btn-next" aria-label="Next image">
-                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                                 </button>
-                             </div>
-                             <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
-                         </div>
-                     </div>
-                     <!-- Share Curtain Section -->
-                     <div>
-                         <div class="text-center mb-12">
-                             <h3 class="text-3xl text-black">Sheer Curtain Collection</h3>
-                             <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A collection of beautiful, contemporary curtains designed to be shared and admired.</p>
-                         </div>
-                         <div class="scroller-wrapper max-w-4xl mx-auto">
-                             <div class="flex items-center justify-center space-x-2 sm:space-x-4">
-                                 <button class="scroller-btn-external scroller-btn-prev" aria-label="Previous image">
-                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-                                 </button>
-                                 <div class="scroller-container flex-grow overflow-hidden">
-                                     <div class="scroller-viewport">
-                                         <div class="scroller-gallery">
-                                             <img src="two.jpg?q=80&w=1887&auto=format&fit=crop" alt="Share Curtain 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Sheer+Curtain+1';">
-                                             <img src="win1.jpg?q=80&w=1887&auto=format&fit=crop" alt="Share Curtain 2" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Sheer+Curtain+2';">
-                                             <img src="https://images.unsplash.com/photo-1615875605825-5eb9bb5c3dec?q=80&w=1974&auto=format&fit=crop" alt="Share Curtain 3">
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <button class="scroller-btn-external scroller-btn-next" aria-label="Next image">
-                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                                 </button>
-                             </div>
-                             <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
-                         </div>
-                     </div>
+                       <section class="py-24 bg-cover bg-center rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1533757875211-3715b0f92614?q=80&w=2070&auto-format&fit=crop')">
+                           <div class="container mx-auto px-6 text-center bg-black/50 backdrop-blur p-12 rounded-lg max-w-4xl">
+                               <h2 class="text-4xl md:text-5xl text-white mb-4">Our Customized Curtains</h2>
+                               <p class="text-lg text-gray-200">Browse our collection of high-quality, customized curtains for every season. Elegance tailored for your home.</p>
+                           </div>
+                       </section>
+                       <!-- Main Curtain Section -->
+                       <div class="my-16">
+                           <div class="text-center mb-12">
+                               <h3 class="text-3xl text-black">Main Curtain Collection</h3>
+                               <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Our primary collection of elegant designs, crafted with the finest materials for a timeless look.</p>
+                           </div>
+                           <div class="scroller-wrapper max-w-4xl mx-auto">
+                               <div class="flex items-center justify-center space-x-2 sm:space-x-4">
+                                   <button class="scroller-btn-external scroller-btn-prev" aria-label="Previous image">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                                   </button>
+                                   <div class="scroller-container flex-grow overflow-hidden">
+                                       <div class="scroller-viewport">
+                                           <div class="scroller-gallery">
+                                               <img src="one.jpg?q=80&w=1887&auto=format&fit=crop" alt="Main Curtain 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Curtain+1';">
+                                               <img src="sum1.jpg?q=80&w=1887&auto=format&fit=crop" alt="Main Curtain 2" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Curtain+2';">
+                                               <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?q=80&w=2070&auto=format&fit=crop" alt="Main Curtain 3" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Curtain+3';">
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <button class="scroller-btn-external scroller-btn-next" aria-label="Next image">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                                   </button>
+                               </div>
+                               <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
+                           </div>
+                       </div>
+                       <!-- Share Curtain Section -->
+                       <div>
+                           <div class="text-center mb-12">
+                               <h3 class="text-3xl text-black">Sheer Curtain Collection</h3>
+                               <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A collection of beautiful, contemporary curtains designed to be shared and admired.</p>
+                               <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Lightweight, translucent fabrics that gently filter light and add a soft, elegant touch to any room.</p>
+                           </div>
+                           <div class="scroller-wrapper max-w-4xl mx-auto">
+                               <div class="flex items-center justify-center space-x-2 sm:space-x-4">
+                                   <button class="scroller-btn-external scroller-btn-prev" aria-label="Previous image">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                                   </button>
+                                   <div class="scroller-container flex-grow overflow-hidden">
+                                       <div class="scroller-viewport">
+                                           <div class="scroller-gallery">
+                                               <img src="two.jpg?q=80&w=1887&auto=format&fit=crop" alt="Share Curtain 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Sheer+Curtain+1';">
+                                               <img src="win1.jpg?q=80&w=1887&auto=format&fit=crop" alt="Share Curtain 2" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Sheer+Curtain+2';">
+                                               <img src="https://images.unsplash.com/photo-1615875605825-5eb9bb5c3dec?q=80&w=1974&auto=format&fit=crop" alt="Share Curtain 3" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Sheer+Curtain+3';">
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <button class="scroller-btn-external scroller-btn-next" aria-label="Next image">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                                   </button>
+                               </div>
+                               <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
+                           </div>
+                       </div>
                  </div>
              </section>
              <!-- Contact and Location Sections for Curtains Page -->
             <section class="py-20 bg-white">
                  <div class="container mx-auto px-6 max-w-3xl">
-                     <div class="text-center mb-12">
-                         <h2 class="text-4xl text-black">Ready for New Curtains?</h2>
-                         <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
-                     </div>
-                     <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
-                         <form action="https://formspree.io/f/zray2524" method="POST">
-                             <div class="mb-5">
-                                 <label for="name-curtains" class="block text-gray-800 font-semibold mb-2">Name:</label>
-                                 <input type="text" id="name-curtains" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
-                             </div>
-                             <div class="mb-5">
-                                 <label for="email-curtains" class="block text-gray-800 font-semibold mb-2">Email:</label>
-                                 <input type="email" id="email-curtains" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
-                             </div>
-                             <div class="mb-5">
-                                 <label for="interested-curtains" class="block text-gray-800 font-semibold mb-2">Interested In:</label>
-                                 <select id="interested-curtains" name="interested" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-white">
-                                     <option value="Custom Curtains" selected>Custom Curtains</option>
-                                     <option value="Bedding">Bedding (Mattress, Bedsheets, etc.)</option>
-                                     <option value="Seating">Seating (Beanbags, Chairs, etc.)</option>
-                                     <option value="Other">Other</option>
-                                 </select>
-                             </div>
-                             <div class="mb-8">
-                                 <label for="message-curtains" class="block text-gray-800 font-semibold mb-2">Message:</label>
-                                 <textarea id="message-curtains" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"></textarea>
-                             </div>
-                             <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-lg hover:bg-black transition-colors font-bold text-lg shadow-md hover:shadow-lg">Submit Inquiry</button>
-                         </form>
-                         <div class="text-center mt-10">
-                            <p class="text-gray-600 mb-4">Or connect with us directly:</p>
-                            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <a href="https://wa.me/9113692176" target="_blank" class="inline-block bg-black text-white py-3 px-8 rounded-lg hover:bg-gray-800 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
-                                    <span class="flex items-center justify-center space-x-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.317 4.814 4.896-1.282zM9.062 8.609c-.09-.239-.427-.258-.614-.258-.182 0-.372.016-.546.016-.275 0-.687.119-.942.392-.255.274-.942.918-.942 2.24 0 1.322.965 2.6 1.103 2.76.138.161 1.849 2.958 4.542 4.029 2.257.881 2.694.713 3.39.639.695-.073 2.12-.867 2.417-1.707.296-.84.296-1.56.207-1.711-.09-.151-.327-.24-.687-.421-.36-.182-.942-.464-1.08-.515-.138-.051-.275-.073-.412.073-.138.145-.546.687-.662.825-.116.138-.232.161-.412.073-.182-.088-.771-.28-1.468-.906-.544-.472-.906-1.066-.995-1.246-.09-.182-.015-.274.058-.362.073-.088.161-.231.232-.338.073-.106.09-.182.138-.302.046-.12.023-.231-.023-.318-.046-.088-.412-1.016-.546-1.38z"/></svg>
-                                        <span>Chat on WhatsApp</span>
-                                    </span>
-                                </a>
-                                <a href="mailto:elitehomedecor.in@gmail.com" class="inline-block bg-red-600 text-white py-3 px-8 rounded-lg hover:bg-red-700 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
-                                    <span class="flex items-center justify-center space-x-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                                        <span>Send an Email</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                     </div>
-                 </div>
-             </section>
-             <section class="py-20 bg-gray-50">
-                 <div class="container mx-auto px-6">
-                     <div class="text-center mb-12">
-                         <h2 class="text-4xl text-black">Locate Our Store</h2>
-                         <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Visit us in person to see our full collection and get expert advice.</p>
-                     </div>
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                         <div class="w-full h-96 rounded-lg shadow-2xl overflow-hidden">
-                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.820352528148!2d77.59397461521406!3d13.047192716768393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17d8e2a392e9%3A0x6e8f4705ec4a08a!2sAnjaneya%20Temple%20St%2C%20Kempapura%2C%20Hebbal%2C%20Bengaluru%2C%20Karnataka%20560024!5e0!3m2!1sen!2sin!4v1668176881954!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                         </div>
-                         <div class="text-center md:text-left">
-                             <h3 class="text-3xl text-black mb-4">Visit Us</h3>
-                             <p class="text-lg text-gray-700 mb-2"><strong>Address:</strong>#38, Anjeneya Temple Street , Kempapura, Bengaluru - 560024</p>
-                             <p class="text-lg text-gray-700"><strong>Hours:</strong> Mon - Sat, 10:00 AM - 9:00 PM</p>
-                         </div>
-                     </div>
+                       <div class="text-center mb-12">
+                           <h2 class="text-4xl text-black">Ready for New Curtains?</h2>
+                           <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
+                       </div>
+                       <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
+                           <form action="https://formspree.io/f/zray2524" method="POST">
+                               <input type="hidden" name="Inquiry Page" value="Curtains Page">
+                               <div class="mb-5">
+                                   <label for="name-curtains" class="block text-gray-800 font-semibold mb-2">Name:</label>
+                                   <input type="text" id="name-curtains" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                               </div>
+                               <div class="mb-5">
+                                   <label for="phone-curtains" class="block text-gray-800 font-semibold mb-2">Phone Number:</label>
+                                   <input type="tel" id="phone-curtains" name="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                               </div>
+                               <div class="mb-5">
+                                    <label for="interested-curtains" class="block text-gray-800 font-semibold mb-2">Interested In:</label>
+                                    <input type="text" id="interested-curtains" name="interested" value="Custom Curtains" readonly class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100">
+                                </div>
+                               <div class="mb-8">
+                                   <label for="message-curtains" class="block text-gray-800 font-semibold mb-2">Message (Size, Style, etc.):</label>
+                                   <textarea id="message-curtains" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"></textarea>
+                               </div>
+                               <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-lg hover:bg-black transition-colors font-bold text-lg shadow-md hover:shadow-lg">Submit Inquiry</button>
+                           </form>
+                           <div class="text-center mt-10">
+                               <p class="text-gray-600 mb-4">Or connect with us directly:</p>
+                               <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                                   <a href="https://wa.me/9113692176" target="_blank" class="inline-block bg-black text-white py-3 px-8 rounded-lg hover:bg-gray-800 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
+                                       <span class="flex items-center justify-center space-x-3">
+                                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.317 4.814 4.896-1.282zM9.062 8.609c-.09-.239-.427-.258-.614-.258-.182 0-.372.016-.546.016-.275 0-.687.119-.942.392-.255.274-.942.918-.942 2.24 0 1.322.965 2.6 1.103 2.76.138.161 1.849 2.958 4.542 4.029 2.257.881 2.694.713 3.39.639.695-.073 2.12-.867 2.417-1.707.296-.84.296-1.56.207-1.711-.09-.151-.327-.24-.687-.421-.36-.182-.942-.464-1.08-.515-.138-.051-.275-.073-.412.073-.138.145-.546.687-.662.825-.116.138-.232.161-.412.073-.182-.088-.771-.28-1.468-.906-.544-.472-.906-1.066-.995-1.246-.09-.182-.015-.274.058-.362.073-.088.161-.231.232-.338.073-.106.09-.182.138-.302.046-.12.023-.231-.023-.318-.046-.088-.412-1.016-.546-1.38z"/></svg>
+                                           <span>Chat on WhatsApp</span>
+                                       </span>
+                                   </a>
+                                   <a href="mailto:elitehomedecor.in@gmail.com" class="inline-block bg-red-600 text-white py-3 px-8 rounded-lg hover:bg-red-700 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
+                                       <span class="flex items-center justify-center space-x-3">
+                                           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                           <span>Send an Email</span>
+                                       </span>
+                                   </a>
+                               </div>
+                           </div>
+                       </div>
                  </div>
              </section>
         </div>
 
         <!-- Bedding Page Wrapper -->
         <div id="bedding-page" class="page hidden">
-            <section class="py-20 bg-white">
-                <div class="container mx-auto px-6 text-center">
-                    <h2 class="text-4xl text-black">Mattresses, Bedsheets & More</h2>
-                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Create your dream bedroom with our comfortable and stylish bedding options. More images and details coming soon!</p>
-                </div>
-            </section>
-             <!-- Contact and Location Sections for Bedding Page -->
-            <section class="py-20 bg-white">
-                 <div class="container mx-auto px-6 max-w-3xl">
-                     <div class="text-center mb-12">
-                         <h2 class="text-4xl text-black">Find Your Perfect Bedding</h2>
-                         <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
-                     </div>
-                     <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
-                         <form action="https://formspree.io/f/zray2524" method="POST">
-                             <div class="mb-5">
-                                 <label for="name-bedding" class="block text-gray-800 font-semibold mb-2">Name:</label>
-                                 <input type="text" id="name-bedding" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
-                             </div>
-                             <div class="mb-5">
-                                 <label for="email-bedding" class="block text-gray-800 font-semibold mb-2">Email:</label>
-                                 <input type="email" id="email-bedding" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
-                             </div>
-                             <div class="mb-5">
-                                 <label for="interested-bedding" class="block text-gray-800 font-semibold mb-2">Interested In:</label>
-                                 <select id="interested-bedding" name="interested" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-white">
-                                     <option value="Custom Curtains">Custom Curtains</option>
-                                     <option value="Bedding" selected>Bedding (Mattress, Bedsheets, etc.)</option>
-                                     <option value="Seating">Seating (Beanbags, Chairs, etc.)</option>
-                                     <option value="Other">Other</option>
-                                 </select>
-                             </div>
-                             <div class="mb-8">
-                                 <label for="message-bedding" class="block text-gray-800 font-semibold mb-2">Message:</label>
-                                 <textarea id="message-bedding" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"></textarea>
-                             </div>
-                             <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-lg hover:bg-black transition-colors font-bold text-lg shadow-md hover:shadow-lg">Submit Inquiry</button>
-                         </form>
-                         <div class="text-center mt-10">
-                            <p class="text-gray-600 mb-4">Or connect with us directly:</p>
-                            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <a href="https://wa.me/9113692176" target="_blank" class="inline-block bg-black text-white py-3 px-8 rounded-lg hover:bg-gray-800 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
-                                    <span class="flex items-center justify-center space-x-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.317 4.814 4.896-1.282zM9.062 8.609c-.09-.239-.427-.258-.614-.258-.182 0-.372.016-.546.016-.275 0-.687.119-.942.392-.255.274-.942.918-.942 2.24 0 1.322.965 2.6 1.103 2.76.138.161 1.849 2.958 4.542 4.029 2.257.881 2.694.713 3.39.639.695-.073 2.12-.867 2.417-1.707.296-.84.296-1.56.207-1.711-.09-.151-.327-.24-.687-.421-.36-.182-.942-.464-1.08-.515-.138-.051-.275-.073-.412.073-.138.145-.546.687-.662.825-.116.138-.232.161-.412.073-.182-.088-.771-.28-1.468-.906-.544-.472-.906-1.066-.995-1.246-.09-.182-.015-.274.058-.362.073-.088.161-.231.232-.338.073-.106.09-.182.138-.302.046-.12.023-.231-.023-.318-.046-.088-.412-1.016-.546-1.38z"/></svg>
-                                        <span>Chat on WhatsApp</span>
-                                    </span>
-                                </a>
-                                <a href="mailto:elitehomedecor.in@gmail.com" class="inline-block bg-red-600 text-white py-3 px-8 rounded-lg hover:bg-red-700 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
-                                    <span class="flex items-center justify-center space-x-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                                        <span>Send an Email</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                     </div>
+             <section class="py-20 bg-gray-50">
+             <section class="py-20"> <!-- Removed bg-gray-50 -->
+                 <div class="container mx-auto px-6">
+                       <section class="py-24 bg-cover bg-center rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=2070&auto=format&fit=crop');">
+                           <div class="container mx-auto px-6 text-center bg-black/50 backdrop-blur p-12 rounded-lg max-w-4xl">
+                               <h2 class="text-4xl md:text-5xl text-white mb-4">Comfort & Style</h2>
+                               <p class="text-lg text-gray-200">Explore our premium collection of mattresses, pillows, bedsheets, and covers designed for your ultimate comfort.</p>
+                           </div>
+                       </section>
+                       <!-- Mattress Section -->
+                       <div class="my-16">
+                           <div class="text-center mb-12">
+                               <h3 class="text-3xl text-black">Mattresses & Pillows</h3>
+                               <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Experience restful sleep with our supportive and plush mattresses and pillows.</p>
+                           </div>
+                           <div class="scroller-wrapper max-w-4xl mx-auto">
+                               <div class="flex items-center justify-center space-x-2 sm:space-x-4">
+                                   <button class="scroller-btn-external scroller-btn-prev" aria-label="Previous image">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                                   </button>
+                                   <div class="scroller-container flex-grow overflow-hidden">
+                                       <div class="scroller-viewport">
+                                           <div class="scroller-gallery">
+                                               <img src="https://images.unsplash.com/photo-1566324339318-80e46c356976?q=80&w=1974&auto=format&fit=crop" alt="Mattress 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Mattress+1';">
+                                               <img src="https://images.unsplash.com/photo-1616627791431-d5f124c1374a?q=80&w=2070&auto=format&fit=crop" alt="Pillow 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Pillow+1';">
+                                               <img src="https://images.unsplash.com/photo-1590212151088-e8dafd2b9c79?q=80&w=1931&auto=format&fit=crop" alt="Mattress 2" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Mattress+2';">
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <button class="scroller-btn-external scroller-btn-next" aria-label="Next image">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                                   </button>
+                               </div>
+                               <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
+                           </div>
+                       </div>
+                       <!-- Bedsheets Section -->
+                       <div>
+                           <div class="text-center mb-12">
+                               <h3 class="text-3xl text-black">Bedsheets & Covers</h3>
+                               <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Wrap yourself in luxury with our soft, stylish, and durable bed linens.</p>
+                           </div>
+                           <div class="scroller-wrapper max-w-4xl mx-auto">
+                               <div class="flex items-center justify-center space-x-2 sm:space-x-4">
+                                   <button class="scroller-btn-external scroller-btn-prev" aria-label="Previous image">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                                   </button>
+                                   <div class="scroller-container flex-grow overflow-hidden">
+                                       <div class="scroller-viewport">
+                                           <div class="scroller-gallery">
+                                               <img src="https://images.unsplash.com/photo-1600585152220-0f7a3704f3d2?q=80&w=2070&auto=format&fit=crop" alt="Bedsheet 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Bedsheet+1';">
+                                               <img src="https://images.unsplash.com/photo-1616047006789-b7af5afb8c20?q=80&w=2070&auto=format&fit=crop" alt="Bed Cover 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Bed+Cover+1';">
+                                               <img src="https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?q=80&w=1932&auto=format&fit=crop" alt="Bedsheet 2" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Bedsheet+2';">
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <button class="scroller-btn-external scroller-btn-next" aria-label="Next image">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                                   </button>
+                               </div>
+                               <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
+                           </div>
+                       </div>
                  </div>
              </section>
-             <section class="py-20 bg-gray-50">
-                 <div class="container mx-auto px-6">
-                     <div class="text-center mb-12">
-                         <h2 class="text-4xl text-black">Locate Our Store</h2>
-                         <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Visit us in person to see our full collection and get expert advice.</p>
-                     </div>
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                         <div class="w-full h-96 rounded-lg shadow-2xl overflow-hidden">
-                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.820352528148!2d77.59397461521406!3d13.047192716768393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17d8e2a392e9%3A0x6e8f4705ec4a08a!2sAnjaneya%20Temple%20St%2C%20Kempapura%2C%20Hebbal%2C%20Bengaluru%2C%20Karnataka%20560024!5e0!3m2!1sen!2sin!4v1668176881954!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                         </div>
-                         <div class="text-center md:text-left">
-                             <h3 class="text-3xl text-black mb-4">Visit Us</h3>
-                             <p class="text-lg text-gray-700 mb-2"><strong>Address:</strong>#38, Anjeneya Temple Street , Kempapura, Bengaluru - 560024</p>
-                             <p class="text-lg text-gray-700"><strong>Hours:</strong> Mon - Sat, 10:00 AM - 9:00 PM</p>
-                         </div>
-                     </div>
+            <!-- Bedding Products Grid -->
+            <div class="my-16">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl text-black">Our Bedding Collection</h3>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">From plush mattresses to soft bed linens, find everything for your comfort.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
+                    <!-- Product 1 -->
+                    <div class="product-grid-card">
+                        <img src="httpsimg.jpg" alt="Mattress" onerror="this.onerror=null;this.src='https://placehold.co/300x300/f3f4f6/DC2626?text=Mattress';">
+                        <h4 class="product-grid-card-name">Plush Mattress</h4>
+                    </div>
+                    <!-- Product 2 -->
+                    <div class="product-grid-card">
+                        <img src="img2.jpg" alt="Pillow" onerror="this.onerror=null;this.src='https://placehold.co/300x300/f3f4f6/DC2626?text=Pillow';">
+                        <h4 class="product-grid-card-name">Comfort Pillow</h4>
+                    </div>
+                    <!-- Product 3 -->
+                    <div class="product-grid-card">
+                        <img src="img3.jpg" alt="Bedsheet" onerror="this.onerror=null;this.src='https://placehold.co/300x300/f3f4f6/DC2626?text=Bedsheet';">
+                        <h4 class="product-grid-card-name">Luxury Bedsheet</h4>
+                    </div>
+                    <!-- Product 4 -->
+                    <div class="product-grid-card">
+                        <img src="img4.jpg" alt="Bed Cover" onerror="this.onerror=null;this.src='https://placehold.co/300x300/f3f4f6/DC2626?text=Bed+Cover';">
+                        <h4 class="product-grid-card-name">Elegant Bed Cover</h4>
+                    </div>
+                    <!-- Product 5 -->
+                    <div class="product-grid-card">
+                        <img src="img5.jpg" alt="Pillow Set" onerror="this.onerror=null;this.src='https://placehold.co/300x300/f3f4f6/DC2626?text=Pillow+Set';">
+                        <h4 class="product-grid-card-name">Pillow Set</h4>
+                    </div>
+                    <!-- Product 6 -->
+                    <div class="product-grid-card">
+                        <img src="img6.jpg" alt="Comforter" onerror="this.onerror=null;this.src='https://placehold.co/300x300/f3f4f6/DC2626?text=Comforter';">
+                        <h4 class="product-grid-card-name">Cozy Comforter</h4>
+                    </div>
+                    <!-- Product 7 -->
+                    <div class="product-grid-card">
+                        <img src="img7.jpg" alt="Mattress Pro" onerror="this.onerror=null;this.src='https://placehold.co/300x300/f3f4f6/DC2626?text=Mattress+Pro';">
+                        <h4 class="product-grid-card-name">Mattress Pro</h4>
+                    </div>
+                    <!-- Product 8 -->
+                    <div class="product-grid-card">
+                        <img src="img8.jpg" alt="Silk Bedsheet" onerror="this.onerror=null;this.src='https://placehold.co/300x300/f3f4f6/DC2626?text=Silk+Bedsheet';">
+                        <h4 class="product-grid-card-name">Silk Bedsheet</h4>
+                    </div>
+                </div>
+            </div>
+            </section>
+             <!-- Contact Section for Bedding Page -->
+            <section class="py-20 bg-white">
+                 <div class="container mx-auto px-6 max-w-3xl">
+                       <div class="text-center mb-12">
+                           <h2 class="text-4xl text-black">Find Your Perfect Comfort</h2>
+                           <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Let us know what you're looking for, and we'll help you find the perfect bedding solution.</p>
+                       </div>
+                       <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
+                           <form action="https://formspree.io/f/zray2524" method="POST">
+                               <input type="hidden" name="Inquiry Page" value="Bedding Page">
+                               <div class="mb-5">
+                                   <label for="name-bedding" class="block text-gray-800 font-semibold mb-2">Name:</label>
+                                   <input type="text" id="name-bedding" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                               </div>
+                               <div class="mb-5">
+                                   <label for="phone-bedding" class="block text-gray-800 font-semibold mb-2">Phone Number:</label>
+                                   <input type="tel" id="phone-bedding" name="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                               </div>
+                               <div class="mb-5">
+                                    <label for="interested-bedding" class="block text-gray-800 font-semibold mb-2">Interested In:</label>
+                                    <select id="interested-bedding" name="interested" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-white">
+                                        <option value="Mattresses">Mattresses</option>
+                                        <option value="Pillows">Pillows</option>
+                                        <option value="Bedsheets">Bedsheets</option>
+                                        <option value="Bed Covers">Bed Covers</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                               <div class="mb-8">
+                                   <label for="message-bedding" class="block text-gray-800 font-semibold mb-2">Message (Size, Type, etc.):</label>
+                                   <textarea id="message-bedding" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"></textarea>
+                               </div>
+                               <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-lg hover:bg-black transition-colors font-bold text-lg shadow-md hover:shadow-lg">Submit Inquiry</button>
+                           </form>
+                       </div>
                  </div>
              </section>
         </div>
@@ -584,280 +684,439 @@
         <!-- Seating Page Wrapper -->
         <div id="seating-page" class="page hidden">
             <section class="py-20 bg-gray-50">
-                <div class="container mx-auto px-6 text-center">
-                    <h2 class="text-4xl text-black">Beanbags, Chairs & Cushions</h2>
-                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Add a touch of comfort and fun to any room with our seating collection. More images and details coming soon!</p>
-                </div>
-            </section>
-            <!-- Contact and Location Sections for Seating Page -->
-            <section class="py-20 bg-white">
-                 <div class="container mx-auto px-6 max-w-3xl">
-                     <div class="text-center mb-12">
-                         <h2 class="text-4xl text-black">Get Comfortable Seating</h2>
-                         <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
-                     </div>
-                     <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
-                         <form action="https://formspree.io/f/zray2524" method="POST">
-                             <div class="mb-5">
-                                 <label for="name-seating" class="block text-gray-800 font-semibold mb-2">Name:</label>
-                                 <input type="text" id="name-seating" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
-                             </div>
-                             <div class="mb-5">
-                                 <label for="email-seating" class="block text-gray-800 font-semibold mb-2">Email:</label>
-                                 <input type="email" id="email-seating" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
-                             </div>
-                             <div class="mb-5">
-                                 <label for="interested-seating" class="block text-gray-800 font-semibold mb-2">Interested In:</label>
-                                 <select id="interested-seating" name="interested" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-white">
-                                     <option value="Custom Curtains">Custom Curtains</option>
-                                     <option value="Bedding">Bedding (Mattress, Bedsheets, etc.)</option>
-                                     <option value="Seating" selected>Seating (Beanbags, Chairs, etc.)</option>
-                                     <option value="Other">Other</option>
-                                 </select>
-                             </div>
-                             <div class="mb-8">
-                                 <label for="message-seating" class="block text-gray-800 font-semibold mb-2">Message:</label>
-                                 <textarea id="message-seating" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"></textarea>
-                             </div>
-                             <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-lg hover:bg-black transition-colors font-bold text-lg shadow-md hover:shadow-lg">Submit Inquiry</button>
-                         </form>
-                         <div class="text-center mt-10">
-                            <p class="text-gray-600 mb-4">Or connect with us directly:</p>
-                            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <a href="https://wa.me/9113692176" target="_blank" class="inline-block bg-black text-white py-3 px-8 rounded-lg hover:bg-gray-800 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
-                                    <span class="flex items-center justify-center space-x-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.317 4.814 4.896-1.282zM9.062 8.609c-.09-.239-.427-.258-.614-.258-.182 0-.372.016-.546.016-.275 0-.687.119-.942.392-.255.274-.942.918-.942 2.24 0 1.322.965 2.6 1.103 2.76.138.161 1.849 2.958 4.542 4.029 2.257.881 2.694.713 3.39.639.695-.073 2.12-.867 2.417-1.707.296-.84.296-1.56.207-1.711-.09-.151-.327-.24-.687-.421-.36-.182-.942-.464-1.08-.515-.138-.051-.275-.073-.412.073-.138.145-.546.687-.662.825-.116.138-.232.161-.412.073-.182-.088-.771-.28-1.468-.906-.544-.472-.906-1.066-.995-1.246-.09-.182-.015-.274.058-.362.073-.088.161-.231.232-.338.073-.106.09-.182.138-.302.046-.12.023-.231-.023-.318-.046-.088-.412-1.016-.546-1.38z"/></svg>
-                                        <span>Chat on WhatsApp</span>
-                                    </span>
-                                </a>
-                                <a href="mailto:elitehomedecor.in@gmail.com" class="inline-block bg-red-600 text-white py-3 px-8 rounded-lg hover:bg-red-700 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
-                                    <span class="flex items-center justify-center space-x-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                                        <span>Send an Email</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                     </div>
+            <section class="py-20"> <!-- Removed bg-gray-50 -->
+                 <div class="container mx-auto px-6">
+                       <section class="py-24 bg-cover bg-center rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop');">
+                           <div class="container mx-auto px-6 text-center bg-black/50 backdrop-blur p-12 rounded-lg max-w-4xl">
+                               <h2 class="text-4xl md:text-5xl text-white mb-4">Stylish Seating Solutions</h2>
+                               <p class="text-lg text-gray-200">From plush beanbags to elegant chairs, find the perfect seating to complement your space.</p>
+                           </div>
+                       </section>
+                       <!-- Seating Section -->
+                       <div class="my-16">
+                           <div class="text-center mb-12">
+                               <h3 class="text-3xl text-black">Beanbags & More</h3>
+                               <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Discover our range of comfortable and trendy seating options.</p>
+                           </div>
+                           <div class="scroller-wrapper max-w-4xl mx-auto">
+                               <div class="flex items-center justify-center space-x-2 sm:space-x-4">
+                                   <button class="scroller-btn-external scroller-btn-prev" aria-label="Previous image">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                                   </button>
+                                   <div class="scroller-container flex-grow overflow-hidden">
+                                       <div class="scroller-viewport">
+                                           <div class="scroller-gallery">
+                                               <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1916&auto=format&fit=crop" alt="Chair 1" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Chair+1';">
+                                               <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?q=80&w=1965&auto=format&fit=crop" alt="Beanbag 1" onerror="this.onerror=null;this.src='https::/placehold.co/800x600/cccccc/FFFFFF?text=Beanbag+1';">
+                                               <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?q=80&w=1887&auto=format&fit=crop" alt="Chair 2" onerror="this.onerror=null;this.src='https://placehold.co/800x600/cccccc/FFFFFF?text=Chair+2';">
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <button class="scroller-btn-external scroller-btn-next" aria-label="Next image">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                                   </button>
+                               </div>
+                               <div class="scroller-pagination flex justify-center space-x-2 mt-4"></div>
+                           </div>
+                       </div>
                  </div>
              </section>
-             <section class="py-20 bg-gray-50">
-                 <div class="container mx-auto px-6">
-                     <div class="text-center mb-12">
-                         <h2 class="text-4xl text-black">Locate Our Store</h2>
-                         <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Visit us in person to see our full collection and get expert advice.</p>
-                     </div>
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                         <div class="w-full h-96 rounded-lg shadow-2xl overflow-hidden">
-                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.820352528148!2d77.59397461521406!3d13.047192716768393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17d8e2a392e9%3A0x6e8f4705ec4a08a!2sAnjaneya%20Temple%20St%2C%20Kempapura%2C%20Hebbal%2C%20Bengaluru%2C%20Karnataka%20560024!5e0!3m2!1sen!2sin!4v1668176881954!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                         </div>
-                         <div class="text-center md:text-left">
-                             <h3 class="text-3xl text-black mb-4">Visit Us</h3>
-                             <p class="text-lg text-gray-700 mb-2"><strong>Address: </strong>  #38, Anjeneya Temple Street , Kempapura, Bengaluru - 560024</p>
-                             <p class="text-lg text-gray-700"><strong>Hours:</strong> Mon - Sat, 10:00 AM - 9:00 PM</p>
-                         </div>
-                     </div>
+            <!-- Seating Products Grid -->
+            <div class="my-16">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl text-black">Our Seating Collection</h3>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Comfortable and stylish seating for any room.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-6xl mx-auto">
+                    <!-- Product 1 -->
+                    <div class="product-grid-card">
+                        <img src="img9.jpg" alt="Beanbag" onerror="this.onerror=null;this.src='https://placehold.co/300x300/f3f4f6/DC2626?text=Beanbag';">
+                        <h4 class="product-grid-card-name">Classic Beanbag</h4>
+                    </div>
+                    <!-- Product 2 -->
+                    <div class="product-grid-card">
+                        <img src="img10.jpg" alt="Accent Chair" onerror="this.onerror=null;this.src='https://placehold.co/300x300/f3f4f6/DC2626?text=Accent+Chair';">
+                        <h4 class="product-grid-card-name">Accent Chair</h4>
+                    </div>
+                    <!-- Product 3 -->
+                    <div class="product-grid-card">
+                        <img src="img11.jpg" alt="Lounge Chair" onerror="this.onerror=null;this.src='https://placehold.co/300x300/f3f4f6/DC2626?text=Lounge+Chair';">
+                        <h4 class="product-grid-card-name">Lounge Chair</h4>
+                    </div>
+                    <!-- Product 4 -->
+                    <div class="product-grid-card">
+                        <img src="img12.jpg" alt="Ottoman" onerror="this.onerror=null;this.src='https://placehold.co/300x300/f3f4f6/DC2626?text=Ottoman';">
+                        <h4 class="product-grid-card-name">Plush Ottoman</h4>
+                    </div>
+                    <!-- Add more products as needed -->
+                </div>
+            </div>
+            </section>
+             <!-- Contact Section for Seating Page -->
+            <section class="py-20 bg-white">
+                 <div class="container mx-auto px-6 max-w-3xl">
+                       <div class="text-center mb-12">
+                           <h2 class="text-4xl text-black">Find Your Comfort Zone</h2>
+                           <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Inquire about our beanbags, chairs, and other seating options.</p>
+                       </div>
+                       <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
+                           <form action="https://formspree.io/f/zray2524" method="POST">
+                                <input type="hidden" name="Inquiry Page" value="Seating Page">
+                               <div class="mb-5">
+                                   <label for="name-seating" class="block text-gray-800 font-semibold mb-2">Name:</label>
+                                   <input type="text" id="name-seating" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                               </div>
+                               <div class="mb-5">
+                                   <label for="phone-seating" class="block text-gray-800 font-semibold mb-2">Phone Number:</label>
+                                   <input type="tel" id="phone-seating" name="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                               </div>
+                               <div class="mb-5">
+                                    <label for="interested-seating" class="block text-gray-800 font-semibold mb-2">Interested In:</label>
+                                    <select id="interested-seating" name="interested" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-white">
+                                        <option value="Beanbags">Beanbags</option>
+                                        <option value="Chairs">Chairs</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                               <div class="mb-8">
+                                   <label for="message-seating" class="block text-gray-800 font-semibold mb-2">Message (Quantity, Color, etc.):</label>
+                                   <textarea id="message-seating" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"></textarea>
+                               </div>
+                               <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-lg hover:bg-black transition-colors font-bold text-lg shadow-md hover:shadow-lg">Submit Inquiry</button>
+                           </form>
+                       </div>
                  </div>
              </section>
         </div>
 
         <!-- Contact Page Wrapper -->
         <div id="contact-page" class="page hidden">
-            <section id="contact" class="py-20 bg-white">
-                 <div class="container mx-auto px-6 max-w-3xl">
-                     <div class="text-center mb-12">
-                         <h2 class="text-4xl text-black">Enhance Your Home</h2>
-                         <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Reach out for custom orders, measurements, or any inquiries you may have.</p>
-                     </div>
-                     <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
-                         <form action="https://formspree.io/f/zray2524" method="POST">
-                             <div class="mb-5">
-                                 <label for="name" class="block text-gray-800 font-semibold mb-2">Name:</label>
-                                 <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
-                             </div>
-                             <div class="mb-5">
-                                 <label for="email" class="block text-gray-800 font-semibold mb-2">Email:</label>
-                                 <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
-                             </div>
-                             <div class="mb-5">
-                                 <label for="interested" class="block text-gray-800 font-semibold mb-2">Interested In:</label>
-                                 <select id="interested" name="interested" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-white">
-                                     <option value="Custom Curtains">Custom Curtains</option>
-                                     <option value="Bedding">Bedding (Mattress, Bedsheets, etc.)</option>
-                                     <option value="Seating">Seating (Beanbags, Chairs, etc.)</option>
-                                     <option value="Other">Other</option>
-                                 </select>
-                             </div>
-                             <div class="mb-8">
-                                 <label for="message" class="block text-gray-800 font-semibold mb-2">Message:</label>
-                                 <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"></textarea>
-                             </div>
-                             <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-lg hover:bg-black transition-colors font-bold text-lg shadow-md hover:shadow-lg">Submit Inquiry</button>
-                         </form>
-                         <div class="text-center mt-10">
-                            <p class="text-gray-600 mb-4">Or connect with us directly:</p>
-                            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <a href="https://wa.me/9113692176" target="_blank" class="inline-block bg-black text-white py-3 px-8 rounded-lg hover:bg-gray-800 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
-                                    <span class="flex items-center justify-center space-x-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.317 4.814 4.896-1.282zM9.062 8.609c-.09-.239-.427-.258-.614-.258-.182 0-.372.016-.546.016-.275 0-.687.119-.942.392-.255.274-.942.918-.942 2.24 0 1.322.965 2.6 1.103 2.76.138.161 1.849 2.958 4.542 4.029 2.257.881 2.694.713 3.39.639.695-.073 2.12-.867 2.417-1.707.296-.84.296-1.56.207-1.711-.09-.151-.327-.24-.687-.421-.36-.182-.942-.464-1.08-.515-.138-.051-.275-.073-.412.073-.138.145-.546.687-.662.825-.116.138-.232.161-.412.073-.182-.088-.771-.28-1.468-.906-.544-.472-.906-1.066-.995-1.246-.09-.182-.015-.274.058-.362.073-.088.161-.231.232-.338.073-.106.09-.182.138-.302.046-.12.023-.231-.023-.318-.046-.088-.412-1.016-.546-1.38z"/></svg>
-                                        <span>Chat on WhatsApp</span>
-                                    </span>
-                                </a>
-                                <a href="mailto:elitehomedecor.in@gmail.com" class="inline-block bg-red-600 text-white py-3 px-8 rounded-lg hover:bg-red-700 transition-transform hover:scale-105 shadow-md w-full sm:w-auto">
-                                    <span class="flex items-center justify-center space-x-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                                        <span>Send an Email</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                     </div>
-                 </div>
-            </section>
-        
-            <section id="location" class="py-20 bg-gray-50">
+            <section class="py-20 bg-gray-50">
+            <section class="py-20"> <!-- Removed bg-gray-50 -->
                  <div class="container mx-auto px-6">
-                     <div class="text-center mb-12">
-                         <h2 class="text-4xl text-black">Locate Our Store</h2>
-                         <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Visit us in person to see our full collection and get expert advice.</p>
-                     </div>
-                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                         <div class="w-full h-96 rounded-lg shadow-2xl overflow-hidden">
-                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.820352528148!2d77.59397461521406!3d13.047192716768393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17d8e2a392e9%3A0x6e8f4705ec4a08a!2sAnjaneya%20Temple%20St%2C%20Kempapura%2C%20Hebbal%2C%20Bengaluru%2C%20Karnataka%20560024!5e0!3m2!1sen!2sin!4v1668176881954!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                         </div>
-                         <div class="text-center md:text-left">
-                             <h3 class="text-3xl text-black mb-4">Visit Us</h3>
-                             <p class="text-lg text-gray-700 mb-2"><strong>Address:</strong>#38, Anjeneya Temple Street , Kempapura, Bengaluru - 560024</p>
-                             <p class="text-lg text-gray-700"><strong>Hours:</strong> Mon - Sat, 10:00 AM - 9:00 PM</p>
-                         </div>
-                     </div>
+                       <section class="py-24 bg-cover bg-center rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?q=80&w=2070&auto=format&fit=crop');">
+                           <div class="container mx-auto px-6 text-center bg-black/50 backdrop-blur p-12 rounded-lg max-w-4xl">
+                               <h2 class="text-4xl md:text-5xl text-white mb-4">Get In Touch</h2>
+                               <p class="text-lg text-gray-200">We're here to help. Contact us for custom orders, support, or any questions you might have.</p>
+                           </div>
+                       </section>
+                       
+                       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 my-16 items-start">
+                            <!-- Contact Form -->
+                            <div class="bg-white p-8 sm:p-10 rounded-lg shadow-2xl border border-gray-100">
+                                <h3 class="text-3xl text-black mb-6 text-center">Send Us a Message</h3>
+                                <form action="https://formspree.io/f/zray2524" method="POST">
+                                    <input type="hidden" name="Inquiry Page" value="Contact Page">
+                                    <div class="mb-5">
+                                        <label for="name-contact" class="block text-gray-800 font-semibold mb-2">Name:</label>
+                                        <input type="text" id="name-contact" name="name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                                    </div>
+                                    <div class="mb-5">
+                                        <label for="phone-contact" class="block text-gray-800 font-semibold mb-2">Phone Number:</label>
+                                        <input type="tel" id="phone-contact" name="phone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition">
+                                    </div>
+                                    <div class="mb-5">
+                                        <label for="interested-contact" class="block text-gray-800 font-semibold mb-2">Interested In:</label>
+                                        <select id="interested-contact" name="interested" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition bg-white">
+                                            <option value="Custom Curtains">Custom Curtains</option>
+                                            <option value="Bedding">Bedding (Mattress, Bedsheets, etc.)</option>
+                                            <option value="Seating">Seating (Beanbags, Chairs, etc.)</option>
+                                            <option value="General Inquiry">General Inquiry</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-8">
+                                        <label for="message-contact" class="block text-gray-800 font-semibold mb-2">Message:</label>
+                                        <textarea id="message-contact" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition"></textarea>
+                                    </div>
+                                    <button type="submit" class="w-full bg-red-600 text-white py-4 rounded-lg hover:bg-black transition-colors font-bold text-lg shadow-md hover:shadow-lg">Submit Inquiry</button>
+                                </form>
+                            </div>
+
+                            <!-- Contact Details & Map -->
+                            <div class="space-y-8">
+                                <div class="bg-white p-8 rounded-lg shadow-2xl border border-gray-100 text-center">
+                                    <h3 class="text-3xl text-black mb-6">Contact Details</h3>
+                                    <div class="space-y-4 text-gray-700">
+                                        <p class="text-lg">
+                                            <strong>Address:</strong><br>
+                                            #38, Anjeneya Temple Street , Kempapura, Bengaluru - 560024
+                                        </p>
+                                        <p class="text-lg">
+                                            <strong>Email:</strong><br>
+                                            <a href="mailto:elitehomedecor.in@gmail.com" class="text-red-600 hover:underline">elitehomedecor.in@gmail.com</a>
+                                        </p>
+                                        <p class="text-lg">
+                                            <strong>Phone / WhatsApp:</strong><br>
+                                            <a href="https://wa.me/9113692176" class="text-red-600 hover:underline">+91 113 692 176</a>
+                                        </p>
+                                        <p class="text-lg">
+                                            <strong>Hours:</strong><br>
+                                            Mon - Sat, 10:00 AM - 9:00 PM
+                                        </p>
+                                    </div>
+                                    <div class="flex items-center justify-center gap-4 mt-8">
+                                       <a href="https://wa.me/9113692176" target="_blank" class="inline-block bg-black text-white py-3 px-6 rounded-lg hover:bg-gray-800 transition-transform hover:scale-105 shadow-md">
+                                           <span class="flex items-center justify-center space-x-2">
+                                               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.317 4.814 4.896-1.282zM9.062 8.609c-.09-.239-.427-.258-.614-.258-.182 0-.372.016-.546.016-.275 0-.687.119-.942.392-.255.274-.942.918-.942 2.24 0 1.322.965 2.6 1.103 2.76.138.161 1.849 2.958 4.542 4.029 2.257.881 2.694.713 3.39.639.695-.073 2.12-.867 2.417-1.707.296-.84.296-1.56.207-1.711-.09-.151-.327-.24-.687-.421-.36-.182-.942-.464-1.08-.515-.138-.051-.275-.073-.412.073-.138.145-.546.687-.662.825-.116.138-.232.161-.412.073-.182-.088-.771-.28-1.468-.906-.544-.472-.906-1.066-.995-1.246-.09-.182-.015-.274.058-.362.073-.088.161-.231.232-.338.073-.106.09-.182.138-.302.046-.12.023-.231-.023-.318-.046-.088-.412-1.016-.546-1.38z"/></svg>
+                                               <span>WhatsApp</span>
+                                           </span>
+                                       </a>
+                                       <a href="mailto:elitehomedecor.in@gmail.com" class="inline-block bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-700 transition-transform hover:scale-105 shadow-md">
+                                           <span class="flex items-center justify-center space-x-2">
+                                               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                               <span>Email</span>
+                                           </span>
+                                       </a>
+                                   </div>
+                                </div>
+                                <div class="w-full h-96 rounded-lg shadow-2xl overflow-hidden">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.820352528148!2d77.59397461521406!3d13.047192716768393!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17d8e2a392e9%3A0x6e8f4705ec4a08a!2sAnjaneya%20Temple%20St%2C%20Kempapura%2C%20Hebbal%2C%20Bengaluru%2C%20Karnataka%20560024!5e0!3m2!1sen!2sin!4v1668176881954!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                </div>
+                           </div>
+                       </div>
                  </div>
-            </section>
+             </section>
         </div>
 
     </main>
 
-    <footer class="bg-black">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-400">
-            <p>&copy; 2024 Elite Home Decor. All rights reserved.</p>
+    <!-- Footer -->
+    <footer class="bg-black text-gray-300 py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- About -->
+                <div>
+                    <h4 class="text-xl font-semibold text-white mb-4" style="font-family: 'Cormorant Garamond', serif;">Elite Home Decor</h4>
+                    <p class="text-gray-400">Crafting elegance for your home with bespoke curtains, premium bedding, and stylish seating. Quality and service you can trust.</p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-xl font-semibold text-white mb-4" style="font-family: 'Cormorant Garamond', serif;">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home-page" class="nav-link-footer text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#curtains-page" class="nav-link-footer text-gray-400 hover:text-white transition-colors">Curtains</a></li>
+                        <li><a href="#bedding-page" class="nav-link-footer text-gray-400 hover:text-white transition-colors">Bedding</a></li>
+                        <li><a href="#seating-page" class="nav-link-footer text-gray-400 hover:text-white transition-colors">Seating</a></li>
+                        <li><a href="#contact-page" class="nav-link-footer text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Connect -->
+                <div>
+                    <h4 class="text-xl font-semibold text-white mb-4" style="font-family: 'Cormorant Garamond', serif;">Connect With Us</h4>
+                    <p class="text-gray-400 mb-4">
+                        #38, Anjeneya Temple Street , Kempapura, Bengaluru - 560024
+                    </p>
+                    <p class="text-gray-400 mb-4">
+                        <a href="mailto:elitehomedecor.in@gmail.com" class="hover:text-white transition-colors">elitehomedecor.in@gmail.com</a>
+                    </p>
+                    <!-- Social Icons -->
+                    <div class="flex space-x-5">
+                        <a href="https://wa.me/9113692176" target="_blank" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="WhatsApp">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.267.655 4.398 1.908 6.161l-1.317 4.814 4.896-1.282zM9.062 8.609c-.09-.239-.427-.258-.614-.258-.182 0-.372.016-.546.016-.275 0-.687.119-.942.392-.255.274-.942.918-.942 2.24 0 1.322.965 2.6 1.103 2.76.138.161 1.849 2.958 4.542 4.029 2.257.881 2.694.713 3.39.639.695-.073 2.12-.867 2.417-1.707.296-.84.296-1.56.207-1.711-.09-.151-.327-.24-.687-.421-.36-.182-.942-.464-1.08-.515-.138-.051-.275-.073-.412.073-.138.145-.546.687-.662.825-.116.138-.232.161-.412.073-.182-.088-.771-.28-1.468-.906-.544-.472-.906-1.066-.995-1.246-.09-.182-.015-.274.058-.362.073-.088.161-.231.232-.338.073-.106.09-.182.138-.302.046-.12.023-.231-.023-.318-.046-.088-.412-1.016-.546-1.38z"/></svg>
+                        </a>
+                        <a href="https://www.instagram.com/elite_home_decor_official/" target="_blank" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="Instagram">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.059 1.689.073 4.948.073 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
+                        <!-- Add Facebook link if available -->
+                        <!-- <a href="#" class="text-gray-400 hover:text-white transition-transform hover:scale-110" aria-label="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24h-1.918c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.294h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+                        </a> -->
+                    </div>
+                </div>
+            </div>
+            <!-- Copyright -->
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-500">&copy; <span id="current-year"></span> Elite Home Decor. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile Menu Logic ---
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const closeMenuButton = document.getElementById('close-menu-button');
+
+            // --- Copyright Year ---
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // --- Mobile Menu ---
             const mobileMenu = document.getElementById('mobile-menu');
             const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-            const mobileNavLinks = document.querySelectorAll('#mobile-menu .mobile-nav-link');
+            const openMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-menu-button');
 
             const openMenu = () => {
                 mobileMenu.classList.remove('hidden');
-                requestAnimationFrame(() => {
+                setTimeout(() => {
                     mobileMenuPanel.classList.remove('translate-x-full');
-                });
+                }, 10); // small delay for transition
             };
 
             const closeMenu = () => {
                 mobileMenuPanel.classList.add('translate-x-full');
-                mobileMenuPanel.addEventListener('transitionend', () => {
+                setTimeout(() => {
                     mobileMenu.classList.add('hidden');
-                }, { once: true });
+                }, 300); // match transition duration
             };
 
-            mobileMenuButton.addEventListener('click', openMenu);
+            openMenuButton.addEventListener('click', openMenu);
             closeMenuButton.addEventListener('click', closeMenu);
-            
-            mobileNavLinks.forEach(link => {
-                link.addEventListener('click', closeMenu);
-            });
-
+            // Close menu when clicking the background overlay
             mobileMenu.addEventListener('click', (e) => {
                 if (e.target === mobileMenu) {
                     closeMenu();
                 }
             });
-
-            // --- Page Switching Logic ---
-            const pageWrappers = document.querySelectorAll('main > .page');
-            const allNavLinks = document.querySelectorAll('header a, #mobile-menu nav a, a.feature-card-link');
-
-            const showPage = (targetId) => {
-                if (!targetId || !targetId.startsWith('#')) return;
-                const pageId = targetId.substring(1);
-                
-                pageWrappers.forEach(page => {
-                    page.classList.toggle('hidden', page.id !== pageId);
-                });
-                window.scrollTo(0, 0);
-            };
-
-            allNavLinks.forEach(link => {
-                link.addEventListener('click', (event) => {
-                    const targetId = link.getAttribute('href');
-                    if (targetId.startsWith('#')) {
-                        event.preventDefault();
-                        window.location.hash = targetId;
-                    }
-                });
+            // Close menu when a link is clicked
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', closeMenu);
             });
 
-            const handleHashChange = () => {
-                const hash = window.location.hash || '#home-page';
-                showPage(hash);
+            // --- SPA Page Navigation ---
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const ctaLinks = document.querySelectorAll('.nav-link-cta');
+            const logoLink = document.querySelector('.nav-link-logo');
+            const footerLinks = document.querySelectorAll('.nav-link-footer');
+
+            const allLinks = [...navLinks, ...mobileNavLinks, ...ctaLinks, logoLink, ...footerLinks];
+
+            const showPage = (pageId) => {
+                // Hide all pages
+                pages.forEach(page => {
+                    page.classList.add('hidden');
+                });
+
+                // Show the target page
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.remove('hidden');
+                    window.scrollTo(0, 0); // Scroll to top
+                } else {
+                    // Fallback to home page if ID is invalid
+                    document.getElementById('home-page').classList.remove('hidden');
+                }
+
+                // Update active nav link
+                const targetHref = `#${pageId}`;
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === targetHref) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
             };
 
-            window.addEventListener('hashchange', handleHashChange);
-            handleHashChange(); // Initial page load
+            const handleNav = (e) => {
+                const href = e.currentTarget.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const pageId = href.substring(1);
+                    // Update URL hash
+                    window.location.hash = pageId;
+                    // showPage(pageId); // Function will be called by hashchange listener
+                }
+            };
 
-            // Horizontal scroller functionality
-            const scrollerWrappers = document.querySelectorAll('.scroller-wrapper');
-            scrollerWrappers.forEach(wrapper => {
-                const gallery = wrapper.querySelector('.scroller-gallery');
-                const prevBtn = wrapper.querySelector('.scroller-btn-prev');
-                const nextBtn = wrapper.querySelector('.scroller-btn-next');
-                const paginationContainer = wrapper.querySelector('.scroller-pagination');
+            // Add click handlers to all navigation links
+            allLinks.forEach(link => {
+                if (link) { // Check if link exists
+                    link.addEventListener('click', handleNav);
+                }
+            });
+
+            // --- Hashchange Listener ---
+            // Listen for hash changes (e.g., browser back/forward, manual URL change)
+            window.addEventListener('hashchange', () => {
+                const pageId = window.location.hash.substring(1) || 'home-page';
+                showPage(pageId);
+            });
+
+            // --- Initial Page Load ---
+            // Show page based on URL hash on load
+            const initialPageId = window.location.hash.substring(1) || 'home-page';
+            showPage(initialPageId);
+
+
+            // --- Image Scroller Logic ---
+            const allScrollers = document.querySelectorAll('.scroller-wrapper');
+
+            allScrollers.forEach((scroller, index) => {
+                const gallery = scroller.querySelector('.scroller-gallery');
+                const prevBtn = scroller.querySelector('.scroller-btn-prev');
+                const nextBtn = scroller.querySelector('.scroller-btn-next');
+                const paginationContainer = scroller.querySelector('.scroller-pagination');
+                
+                if (!gallery) {
+                    console.error(`Scroller ${index} is missing a .scroller-gallery element.`);
+                    return;
+                }
+
                 const images = gallery.querySelectorAll('img');
-
-                if (!gallery || !prevBtn || !nextBtn || images.length === 0) return;
+                if (images.length === 0) {
+                     console.warn(`Scroller ${index} has no images.`);
+                    return;
+                }
 
                 let currentIndex = 0;
                 const totalImages = images.length;
-                
-                paginationContainer.innerHTML = ''; // Clear existing dots
-                for (let i = 0; i < totalImages; i++) {
-                    const dot = document.createElement('div');
-                    dot.classList.add('pagination-dot');
-                    dot.addEventListener('click', () => {
-                        currentIndex = i;
-                        updateGallery();
-                    });
-                    paginationContainer.appendChild(dot);
-                }
-                const dots = paginationContainer.querySelectorAll('.pagination-dot');
 
-                function updateGallery() {
+                // Create pagination dots
+                if (paginationContainer) {
+                    for (let i = 0; i < totalImages; i++) {
+                        const dot = document.createElement('button');
+                        dot.classList.add('pagination-dot');
+                        dot.setAttribute('aria-label', `Go to image ${i + 1}`);
+                        if (i === 0) {
+                            dot.classList.add('active');
+                        }
+                        dot.addEventListener('click', () => {
+                            goToSlide(i);
+                        });
+                        paginationContainer.appendChild(dot);
+                    }
+                }
+                const dots = paginationContainer ? paginationContainer.querySelectorAll('.pagination-dot') : [];
+
+                const updateScroller = () => {
+                    // Move the gallery
                     gallery.style.transform = `translateX(-${currentIndex * 100}%)`;
-                    dots.forEach((dot, index) => {
-                        dot.classList.toggle('active', index === currentIndex);
+
+                    // Update pagination dots
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === currentIndex);
+                    });
+
+                    // Update button states (optional: disable at ends)
+                    if(prevBtn) prevBtn.disabled = currentIndex === 0;
+                    if(nextBtn) nextBtn.disabled = currentIndex === totalImages - 1;
+                };
+
+                const goToSlide = (index) => {
+                    currentIndex = (index + totalImages) % totalImages; // Wrap around
+                    updateScroller();
+                };
+
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        goToSlide(currentIndex - 1);
+                    });
+                }
+                
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', () => {
+                        goToSlide(currentIndex + 1);
                     });
                 }
 
-                prevBtn.addEventListener('click', () => {
-                    currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalImages - 1;
-                    updateGallery();
-                });
-
-                nextBtn.addEventListener('click', () => {
-                    currentIndex = (currentIndex < totalImages - 1) ? currentIndex + 1 : 0;
-                    updateGallery();
-                });
-
-                updateGallery();
+                // Initialize first slide
+                updateScroller();
             });
         });
     </script>
+
 </body>
 </html>
 
